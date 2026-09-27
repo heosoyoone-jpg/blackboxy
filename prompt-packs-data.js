@@ -4,7 +4,7 @@
    ▸ 상품 추가: 아래 배열에 객체 하나를 복사해서 값만 바꾸면 됩니다.
    ▸ 결제 연결: paymentUrl 에 외부 결제 페이지 주소(https://…)를 넣으세요.
        비워두면 '구매하기'를 눌렀을 때 "결제 페이지 준비 중이에요." 안내가 나옵니다.
-   ▸ 무료 팩: downloadUrl 에 JSON 파일 경로를 넣으세요. (예: downloads/xxx.json)
+   ▸ 무료 팩: downloadUrl 에 JSON 파일 경로를 넣으세요. (예: blackboxy-starter-pack.json — 사이트 맨 위에 둔 파일)
        비워두면 "파일을 준비하고 있어요." 안내가 나옵니다.
    ▸ badges 는 '무료' · '추천' · '신규' 만 사용합니다. (근거 없는 '베스트셀러'·'1위' 표현 금지)
    ▸ filters 는 상단 카테고리 칩 id: marketing · blog · work · image · dev
@@ -58,14 +58,14 @@ window.BLACKBOXY_PROMPT_PACKS = [
       { title: '선택지 비교 의사결정', preview: '아래 선택지 중 어떤 것이 내 상황에 더 적합한지 판단할 수 있도록 비교해줘. 선택지: A. [선택지 A] B.' },
     ],
     paymentUrl: '',
-    downloadUrl: 'downloads/blackboxy-starter-pack.json',
+    downloadUrl: 'blackboxy-starter-pack.json',
   },
   {
     id: 'marketing',
     packId: 'blackboxy-marketing-01',
     name: '마케팅 실무팩',
     type: 'paid',
-    price: 9900,
+    price: 4900,
     promptCount: 50,
     badges: ['추천'],
     drawerColor: '#FFAA5C',

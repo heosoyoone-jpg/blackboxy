@@ -56,7 +56,7 @@
 
 # 프롬프트팩 파일: 한글이 깨지지 않게 UTF-8, 내용 수정이 바로 반영되게 매번 확인
 [[headers]]
-  for = "/downloads/*.json"
+  for = "/blackboxy-starter-pack.json"
   [headers.values]
     Content-Type = "application/json; charset=utf-8"
     Cache-Control = "public, max-age=0, must-revalidate"

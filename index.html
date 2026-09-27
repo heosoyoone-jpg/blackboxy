@@ -391,6 +391,13 @@ body.modal-open { overflow: hidden; }
   column-span: all;
 }
 .empty-wall .big { font-size: 40px; margin-bottom: 8px; }
+.empty-wall.compact { padding: 26px 20px 10px; }
+/* 검색 중: Prompt Wall 공개 프롬프트도 함께 보여줌 */
+.search-pub { padding: 6px 40px 10px; }
+.search-pub[hidden] { display: none; }
+.search-pub-head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; padding-top: 18px; border-top: 1px dashed var(--border); }
+.search-pub-title { font-size: 13px; font-weight: 800; color: var(--text-mid); }
+.search-pub-sub { font-size: 11px; color: var(--text-faint); font-weight: 600; }
 
 /* ══ FLYING CARD (save animation) ══ */
 .fly-card {
@@ -836,6 +843,7 @@ mark.hl { color: inherit; }
   /* Stage 2 */
   .wall-header { flex-wrap: wrap; padding: 26px 16px 14px; row-gap: 6px; }
   .wall-count { margin-left: 0; }
+  .search-pub { padding: 6px 0 10px; }
   .data-btn { min-height: 40px; margin-left: auto; }
   .empty-state { padding: 36px 0 44px; }
   .empty-samples-wrap { margin-top: 32px; }
@@ -930,6 +938,7 @@ mark.hl { color: inherit; }
     <button type="button" class="data-btn" onclick="openDataModal()" aria-haspopup="dialog">🗂 데이터 관리</button>
   </div>
   <div class="wall" id="wall"></div>
+  <div class="search-pub" id="search-pub" hidden></div>
 </div>
 
 <!-- ══ 공개 PROMPT WALL (탐색 공간) ══ -->
@@ -1515,6 +1524,9 @@ function hl(text, q) {
 function renderWall() {
   const wall = document.getElementById('wall');
   const q = searchQuery.trim().toLowerCase();
+  // 검색 중에는 '오늘의 발견'을 접어서 결과가 검색창 바로 아래에 오게
+  document.getElementById('discover-wrap').style.display = q ? 'none' : '';
+  const pubHits = renderSearchPub(q);
 
   let list = prompts.filter(p => {
     if (activeDrawer && p.drawer !== activeDrawer) return false;
@@ -1557,9 +1569,9 @@ function renderWall() {
   }
 
   if (list.length === 0) {
-    wall.innerHTML = `<div class="empty-wall">
+    wall.innerHTML = `<div class="empty-wall${q && pubHits ? ' compact' : ''}">
       <div class="big">🤖💭</div>
-      ${q ? '그런 기억은 없는 것 같아요...<br>다른 단어로 찾아볼까요?' : '이 서랍은 아직 비어있어요.<br>＋ 주워담기로 첫 기억을 넣어주세요!'}
+      ${q ? (pubHits ? '내 보관함에는 없는 기억이에요.<br>아래 Prompt Wall에서 찾은 프롬프트를 확인해보세요 👇' : '그런 기억은 없는 것 같아요...<br>다른 단어로 찾아볼까요?') : '이 서랍은 아직 비어있어요.<br>＋ 주워담기로 첫 기억을 넣어주세요!'}
     </div>`;
     return;
   }
@@ -1591,6 +1603,22 @@ function renderWall() {
       <div class="paper-src">${src} · ${timeAgo(p.createdAt)}${copies}</div>
     </div>`;
   }).join('');
+}
+
+/* 검색어와 맞는 공개 프롬프트 (Prompt Wall) — 내 보관함 결과 바로 아래 */
+function renderSearchPub(q) {
+  const box = document.getElementById('search-pub');
+  if (!q) { box.hidden = true; box.innerHTML = ''; return 0; }
+  const hits = PUBLIC_PROMPTS.filter(p =>
+    [p.title, p.summary, p.body, pubCatOf(p.cat).name].concat(p.tags).some(v => String(v || '').toLowerCase().includes(q)));
+  if (!hits.length) { box.hidden = true; box.innerHTML = ''; return 0; }
+  box.innerHTML = `<div class="search-pub-head">
+      <span class="search-pub-title">🧺 Prompt Wall에서 찾은 프롬프트 ${hits.length}개</span>
+      <span class="search-pub-sub">다른 사람들이 모은 공개 프롬프트 · 담기 전엔 내 보관함에 저장되지 않아요</span>
+    </div>
+    <div class="pub-grid">${hits.map(pubCardHTML).join('')}</div>`;
+  box.hidden = false;
+  return hits.length;
 }
 
 /* ═══════════════ ACTIONS ═══════════════ */
@@ -2174,6 +2202,19 @@ searchInput.addEventListener('input', () => {
     renderWall();
     setTimeout(() => drawBoxy('hero-boxy', 0, 'normal'), 800);
   }, 150);
+});
+searchInput.addEventListener('keydown', e => {
+  if (e.key !== 'Enter' || e.isComposing) return;
+  e.preventDefault();
+  clearTimeout(searchDebounce);
+  searchQuery = searchInput.value;
+  renderWall();
+  if (searchQuery.trim()) {
+    const head = document.querySelector('.wall-header');
+    const top = head.getBoundingClientRect().top + window.scrollY - 80;   // 상단바 높이만큼 여유
+    window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+    if (window.matchMedia('(max-width: 768px)').matches) searchInput.blur(); // 모바일: 키보드 내려서 결과가 보이게
+  }
 });
 document.addEventListener('keydown', e => {
   if ((e.metaKey || e.ctrlKey) && e.key === 'k') {

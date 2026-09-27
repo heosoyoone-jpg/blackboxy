@@ -30,7 +30,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 <link rel="stylesheet" href="style.css?v=20260927">
-<!-- [TODO] GA4 측정 태그 · Search Console 인증 메타 · AdSense 스크립트는 ID 확보 후 여기에 삽입 -->
+<!-- Google AdSense (게시자 ID: ca-pub-3938535658741734) -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3938535658741734" crossorigin="anonymous"></script>
+<!-- [TODO] GA4 측정 태그는 ID 확보 후 여기에 삽입 -->
 </head>
 <body>
 <header class="site-nav">
@@ -59,17 +61,27 @@
 <p>즉, BLACKBOXY는 이용자가 어떤 프롬프트를 저장했는지 알 수 없으며, 해당 데이터에 접근할 수 없습니다.</p>
 
 <h2>2. 자동으로 수집되는 정보</h2>
-<p>현재 BLACKBOXY는 별도의 방문 통계(애널리틱스) 도구나 광고 쿠키를 사용하지 않으며, 서비스 운영자가 직접 쿠키를 설정하지 않습니다.</p>
-<p>다만 웹사이트를 불러오는 과정에서 아래 외부 서비스가 기술적으로 필요한 정보를 처리할 수 있습니다.</p>
+<p>BLACKBOXY 웹사이트는 Google AdSense 광고를 게재합니다. 방문 통계(애널리틱스) 도구는 사용하지 않으며, 서비스 운영자가 직접 쿠키를 설정하지는 않습니다.</p>
+<p>웹사이트를 불러오고 광고를 보여주는 과정에서 아래 외부 서비스가 정보를 처리할 수 있습니다.</p>
 <table>
   <tr><th>제공자</th><th>처리될 수 있는 정보</th><th>목적</th></tr>
   <tr><td>Netlify (웹 호스팅)</td><td>IP 주소, 브라우저 정보, 접속 시각 등 접속 기록</td><td>웹사이트 제공 및 보안</td></tr>
   <tr><td>Google Fonts, jsDelivr (글꼴 제공)</td><td>IP 주소, 브라우저 정보</td><td>화면 글꼴 불러오기</td></tr>
+  <tr><td>Google AdSense (광고)</td><td>쿠키 및 광고 식별자, IP 주소, 브라우저 정보, 방문한 페이지 정보</td><td>광고 게재, 광고 성과 측정, 부정 클릭 방지</td></tr>
 </table>
-<p>위 정보는 각 제공자의 개인정보 처리방침에 따라 처리되며, 서비스 운영자가 이를 이용해 이용자를 식별하지 않습니다.</p>
+<p>위 정보는 각 제공자의 개인정보처리방침에 따라 처리되며, 서비스 운영자가 이를 이용해 이용자를 식별하지 않습니다.</p>
 
-<h2>3. 광고 및 분석 도구</h2>
-<p>현재 서비스에는 광고(Google AdSense 등)나 방문 분석 도구(Google Analytics 등)가 적용되어 있지 않습니다. 추후 이러한 도구를 도입하는 경우, 적용 전에 본 방침에 수집 항목과 목적, 쿠키 사용 여부 및 거부 방법을 추가해 안내하겠습니다.</p>
+<h2 id="ads">3. 광고 및 쿠키</h2>
+<p>BLACKBOXY 웹사이트는 Google AdSense를 통해 광고를 게재합니다.</p>
+<ul>
+  <li>Google을 포함한 제3자 공급업체는 쿠키를 사용하여 이용자가 이 웹사이트 또는 다른 웹사이트를 방문한 기록을 바탕으로 광고를 게재합니다.</li>
+  <li>Google은 광고 쿠키를 사용하여, 이용자가 이 웹사이트 및/또는 인터넷의 다른 웹사이트를 방문한 기록을 바탕으로 Google과 파트너가 이용자에게 광고를 게재할 수 있도록 합니다.</li>
+  <li>이용자는 <a class="inline-link" href="https://adssettings.google.com" target="_blank" rel="noopener noreferrer">Google 광고 설정</a>에서 맞춤 광고를 해제할 수 있습니다. 또한 <a class="inline-link" href="https://www.aboutads.info/choices/" target="_blank" rel="noopener noreferrer">www.aboutads.info</a>에서 맞춤 광고에 사용되는 제3자 공급업체의 쿠키를 해제할 수 있습니다.</li>
+  <li>브라우저 설정에서 쿠키 저장을 거부하거나 삭제할 수 있습니다. 이 경우에도 BLACKBOXY의 프롬프트 저장 기능은 그대로 사용할 수 있습니다.</li>
+</ul>
+<p>Google이 광고 과정에서 정보를 사용하는 방식은 <a class="inline-link" href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener noreferrer">Google 파트너 사이트의 데이터 사용 방식</a>에서 확인할 수 있습니다.</p>
+<p>BLACKBOXY는 이용자가 저장한 프롬프트 내용을 광고 제공자에게 전달하지 않습니다. 광고는 웹사이트에만 표시되며, Chrome 확장프로그램에는 광고가 없습니다.</p>
+<p>현재 방문 분석 도구(Google Analytics 등)는 사용하지 않습니다. 추후 도입하는 경우 적용 전에 본 방침에 수집 항목과 목적을 추가해 안내하겠습니다.</p>
 
 <h2>4. 정보의 보관 및 삭제</h2>
 <p>BLACKBOXY에 저장된 프롬프트 데이터는 전적으로 이용자의 브라우저에 저장되므로, 브라우저 데이터(캐시/저장소)를 삭제하면 즉시 함께 삭제됩니다. 서비스 운영자가 별도로 보관하는 이용자 콘텐츠는 없습니다.</p>
@@ -111,7 +123,7 @@
   <tr><td>스크립트 연결<br>(scripting)</td><td>확장프로그램 설치 전부터 열려 있던 ChatGPT·Claude·Gemini 탭에 저장 기능을 연결</td></tr>
   <tr><td>사이트 접근<br>chatgpt.com<br>claude.ai<br>gemini.<wbr>google.com</td><td>해당 사이트에서 이용자가 선택하거나 작성한 프롬프트를 저장 기능과 연결</td></tr>
 </table>
-<p>확장프로그램은 위 세 사이트 외의 웹사이트에는 접근하지 않으며, 방문 기록·쿠키·다운로드 목록 등에 접근하는 권한을 사용하지 않습니다.</p>
+<p>확장프로그램은 위 세 사이트 외의 웹사이트에는 접근하지 않으며, 방문 기록·쿠키·다운로드 목록 등에 접근하는 권한을 사용하지 않습니다. 확장프로그램에는 광고가 없습니다.</p>
 
 <h3>ChatGPT · Claude · Gemini 서비스</h3>
 <p>ChatGPT(OpenAI), Claude(Anthropic), Gemini(Google)에서 이용자가 입력하고 주고받는 내용은 각 서비스의 개인정보처리방침에 따라 처리됩니다. BLACKBOXY는 이들 서비스와 제휴 관계가 없으며, 이들 서비스의 개인정보 처리에 관여하지 않습니다.</p>

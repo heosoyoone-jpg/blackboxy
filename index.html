@@ -599,6 +599,45 @@ mark.hl {
 .empty-state-msg { font-size: 16.5px; font-weight: 800; line-height: 1.65; margin-bottom: 6px; }
 .empty-state-sub { font-size: 12.5px; color: var(--text-dim); font-weight: 600; margin-bottom: 22px; }
 .empty-state .save-fab { position: static; }
+/* Stage 2: 빈 상태는 벽(다단 레이아웃) 전체 폭 사용 */
+.empty-state { column-span: all; }
+.empty-state-hint { font-size: 12px; color: var(--text-dim); font-weight: 600; margin-top: 16px; line-height: 1.7; }
+.link-btn {
+  background: none; border: none; padding: 4px 2px; font: inherit; font-weight: 800;
+  color: var(--neon); text-decoration: underline; text-underline-offset: 3px; cursor: pointer;
+}
+.empty-samples-wrap { width: 100%; max-width: 1080px; margin-top: 40px; text-align: left; }
+.empty-samples-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+.empty-samples-title { font-size: 13.5px; font-weight: 800; color: var(--text); }
+.empty-samples-sub { font-size: 12px; color: var(--text-dim); font-weight: 600; margin-top: 4px; }
+.empty-samples-head .link-btn, .empty-state-hint .link-btn { font-size: 12.5px; }
+
+/* Stage 2: 백업·복원 */
+.data-btn {
+  min-height: 32px; padding: 5px 13px;
+  background: var(--surface); border: 1.5px solid var(--border); border-radius: 20px;
+  color: var(--text-mid); font-size: 11.5px; font-weight: 700; font-family: inherit;
+  cursor: pointer; transition: all .15s; white-space: nowrap; align-self: center;
+}
+.data-btn:hover { border-color: rgba(123,255,181,.3); color: var(--neon); }
+.data-sec-title { font-size: 13px; font-weight: 800; color: var(--text); margin-bottom: 6px; }
+.data-desc { font-size: 12.5px; color: var(--text-mid); line-height: 1.7; margin-bottom: 12px; }
+.data-desc b { color: var(--neon); }
+.data-action { display: flex; align-items: center; justify-content: center; width: 100%; min-height: 44px; flex: none; }
+.data-divider { height: 1px; background: var(--border); margin: 18px 0; }
+.data-error { font-size: 12.5px; color: #FF8B94; font-weight: 700; line-height: 1.6; margin-top: 10px; }
+.data-error:empty { display: none; }
+.data-choice {
+  display: flex; flex-direction: column; gap: 4px; width: 100%; text-align: left;
+  padding: 14px 16px; margin-bottom: 10px; min-height: 44px;
+  background: var(--surface2); border: 1.5px solid var(--border); border-radius: 14px;
+  color: var(--text); font-family: inherit; cursor: pointer; transition: border-color .15s;
+}
+.data-choice b { font-size: 13.5px; font-weight: 800; }
+.data-choice span { font-size: 12px; color: var(--text-mid); font-weight: 600; line-height: 1.6; }
+.data-choice:hover { border-color: rgba(123,255,181,.45); }
+.data-choice.warn:hover { border-color: rgba(255,139,148,.55); }
+.data-confirm-foot { display: flex; }
 
 /* ══ NEW: 오늘의 발견 — 공개 프롬프트 카드 ══ */
 .pub-card {
@@ -772,6 +811,15 @@ mark.hl { color: inherit; }
   .ad-banner-cta { padding: 7px 12px; font-size: 11px; }
   .site-footer-wrap { padding: 32px 18px 40px; }
 
+  /* Stage 2 */
+  .wall-header { flex-wrap: wrap; padding: 26px 16px 14px; row-gap: 6px; }
+  .wall-count { margin-left: 0; }
+  .data-btn { min-height: 40px; margin-left: auto; }
+  .empty-state { padding: 36px 0 44px; }
+  .empty-samples-wrap { margin-top: 32px; }
+  .link-btn { min-height: 44px; }
+  .modal-close { min-width: 40px; min-height: 40px; display: flex; align-items: center; justify-content: center; }
+
   /* 신규 요소 모바일 대응 */
   .hero-desc { font-size: 12.5px; padding: 0 8px; }
   .pubwall-wrap { padding: 8px 16px 16px; }
@@ -854,6 +902,7 @@ mark.hl { color: inherit; }
     <span class="wall-title" id="wall-title">🗄 내 기억 보관함</span>
     <span class="wall-sub">내가 주워 담은 프롬프트들 · 저장 목록</span>
     <span class="wall-count" id="wall-count"></span>
+    <button type="button" class="data-btn" onclick="openDataModal()" aria-haspopup="dialog">💾 백업·복원</button>
   </div>
   <div class="wall" id="wall"></div>
 </div>
@@ -936,6 +985,36 @@ mark.hl { color: inherit; }
   </div>
 </div>
 
+<!-- ══ DATA MODAL (Stage 2: 백업·복원) ══ -->
+<div class="modal-bg" id="data-modal" onclick="if(event.target===this)closeDataModal()">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="data-modal-title">
+    <div class="modal-head">
+      <img class="modal-boxy" src="boxy-icon.png" alt="" width="40" height="40">
+      <div class="modal-title" id="data-modal-title">내 기억 백업·복원<small>브라우저를 바꾸거나 기록을 지우기 전에 챙겨두세요</small></div>
+      <button class="modal-close" onclick="closeDataModal()" aria-label="닫기">✕</button>
+    </div>
+    <div class="modal-body" style="padding-bottom:22px;">
+      <div id="data-main">
+        <div class="data-sec-title">💾 백업 파일 저장</div>
+        <p class="data-desc">지금 보관 중인 기억 <b id="data-count">0개</b>를 파일 하나로 내려받아요. 다른 브라우저나 기기에서 그대로 불러올 수 있어요.</p>
+        <button type="button" class="btn-save data-action" id="data-export-btn" onclick="exportBackup()">💾 백업 파일 저장</button>
+        <div class="data-divider"></div>
+        <div class="data-sec-title">📂 백업 파일 불러오기</div>
+        <p class="data-desc">예전에 저장해둔 BLACKBOXY 백업 파일(.json)을 골라주세요. 불러오기 전에 어떻게 합칠지 먼저 물어볼게요.</p>
+        <button type="button" class="btn-cancel data-action" id="data-pick-btn" onclick="document.getElementById('restore-file').click()">📂 백업 파일 선택</button>
+        <input type="file" id="restore-file" accept=".json,application/json" hidden>
+        <div class="data-error" id="data-error" role="alert"></div>
+      </div>
+      <div id="data-confirm" hidden>
+        <div class="data-sec-title" id="confirm-title"></div>
+        <p class="data-desc" id="confirm-desc"></p>
+        <div id="confirm-choices"></div>
+        <div class="data-confirm-foot"><button type="button" class="btn-cancel data-action" onclick="cancelRestore()">취소</button></div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- ══ SAVE MODAL ══ -->
 <div class="modal-bg" id="modal">
   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="save-modal-title">
@@ -968,7 +1047,7 @@ mark.hl { color: inherit; }
     </div>
     <div class="modal-foot">
       <button class="btn-cancel" onclick="closeModal()">취소</button>
-      <button class="btn-save" onclick="savePrompt()">📦 블랙박시에 저장</button>
+      <button class="btn-save" id="m-save-btn" onclick="savePrompt()">📦 블랙박시에 저장</button>
     </div>
   </div>
 </div>
@@ -1047,16 +1126,7 @@ const PUBLIC_PROMPTS = [
     body: '[우리 브랜드]와 [경쟁 브랜드 2~3개]를 비교 분석해줘.\n표 형식으로: 포지셔닝 / 가격대 / 주요 채널 / 강점 / 약점\n마지막에 우리가 파고들 수 있는 빈틈 3가지를 제안해줘.\n최신 정보가 필요하면 검색해서 확인하고 답해줘.' },
 ];
 
-const SEED = [
-  { id: 'p1', title: '버그 없는 React 컴포넌트 만들기', body: '시니어 React 엔지니어처럼 컴포넌트를 분석하고 잠재 버그와 성능 이슈를 전부 찾아줘. useEffect 의존성 배열, 메모이제이션 누락, 리렌더 원인까지 짚어줘.', drawer: 'coding', tags: ['React','버그'], src: 'reddit.com', starred: true, copies: 3, createdAt: Date.now() - 1000*60*5 },
-  { id: 'p2', title: '바이럴 SNS 카피 만들기', body: 'MZ 타겟 인스타 캡션! 공감 유발 + 이모지 + 해시태그 5개 세트로 만들어줘. 브랜드 톤은 친근하고 위트있게.', drawer: 'marketing', tags: ['SNS','카피'], src: 'twitter.com', starred: false, copies: 1, createdAt: Date.now() - 1000*60*60*24 },
-  { id: 'p3', title: '만능 분석가 시스템 프롬프트', body: '어떤 문제든 구조적으로 쪼개서 분석해줘. 요약 → 인사이트 → 액션 아이템 순서로. 항상 반대 관점도 하나 포함해서.', drawer: 'ai', tags: ['분석','만능'], src: '', starred: true, copies: 27, createdAt: Date.now() - 1000*60*60*24*7 },
-  { id: 'p4', title: 'Midjourney 시네마틱 인물 사진', body: 'cinematic portrait, 85mm lens, golden hour lighting, shallow depth of field, film grain, ARRI ALEXA look --ar 4:5 --v 6', drawer: 'image', tags: ['MJ','인물'], src: 'prompthero.com', starred: false, copies: 5, createdAt: Date.now() - 1000*60*60*24*3 },
-  { id: 'p5', title: 'UI/UX 피드백 전문가', body: '시니어 디자이너처럼 시각 위계, 컬러 대비, 타이포그래피 순서로 피드백해줘. 각 항목마다 개선 예시 포함.', drawer: 'design', tags: ['UI','피드백'], src: 'reddit.com', starred: true, copies: 8, createdAt: Date.now() - 1000*60*60*24*14 },
-  { id: 'p6', title: '투자자 IR 덱 스토리라인', body: '문제 → 해결책 → 시장 → 팀 → 트랙션 순서로 IR 스토리 짜줘. 각 슬라이드별 핵심 메시지도 뽑아줘.', drawer: 'business', tags: ['IR','스타트업'], src: '', starred: true, copies: 2, createdAt: Date.now() - 1000*60*60*24*7 },
-  { id: 'p7', title: '코드 리뷰 & 리팩토링 마스터', body: '시니어 개발자 관점으로 리뷰해줘. 가독성 → 성능 → 보안 순서로 꼼꼼하게. 각 이슈마다 수정된 코드 예시까지.', drawer: 'coding', tags: ['리팩토링'], src: '', starred: false, copies: 4, createdAt: Date.now() - 1000*60*60*2 },
-  { id: 'p8', title: 'SEO 상위노출 블로그 초안', body: '네이버/구글 상위노출 최적화 초안! H1-H3 구조, 메타 설명, 내부 링크까지 한 번에 잡아줘.', drawer: 'marketing', tags: ['SEO','블로그'], src: 'promptbase.com', starred: true, copies: 11, createdAt: Date.now() - 1000*60*60*24*3 },
-];
+/* Stage 2: 첫 방문에도 샘플을 내 보관함에 넣지 않음 (공개 프롬프트는 Prompt Wall에서 직접 담기) */
 
 const LS_KEY = 'blackbox_memories_v1';
 let prompts = load();
@@ -1072,9 +1142,11 @@ function normalizePrompt(p, i) {
   const out = Object.assign({}, p);          // 알 수 없는 필드도 보존
   out.id = SAFE_ID.test(str(p.id)) ? str(p.id) : ('p' + Date.now() + '_' + i);
   out.title = str(p.title);
-  out.body = str(p.body);
-  out.tags = Array.isArray(p.tags) ? p.tags.map(str).filter(Boolean) : [];
-  out.src = str(p.src);
+  out.body = str(p.body != null ? p.body : (p.prompt != null ? p.prompt : p.content));
+  out.tags = Array.isArray(p.tags) ? p.tags.map(t => str(t).trim()).filter(Boolean)
+           : (typeof p.tags === 'string' ? p.tags.split(',').map(t => t.trim()).filter(Boolean) : []);
+  out.src = str(p.src != null ? p.src : p.source);
+  if (p.updatedAt != null) out.updatedAt = Number.isFinite(+p.updatedAt) ? +p.updatedAt : undefined;
   out.drawer = DRAWERS.some(d => d.id === p.drawer) ? p.drawer : 'ai';
   out.starred = !!p.starred;
   out.copies = Number.isFinite(+p.copies) && +p.copies > 0 ? Math.floor(+p.copies) : 0;
@@ -1085,8 +1157,8 @@ function normalizePrompt(p, i) {
 }
 function load() {
   let raw = null;
-  try { raw = localStorage.getItem(LS_KEY); } catch (e) { return [...SEED]; }
-  if (raw == null) return [...SEED];               // 첫 방문: 샘플 표시
+  try { raw = localStorage.getItem(LS_KEY); } catch (e) { return []; }
+  if (raw == null) return [];                       // 첫 방문: 빈 보관함 + 안내
   try {
     const data = JSON.parse(raw);
     if (!Array.isArray(data)) throw new Error('not an array');
@@ -1100,8 +1172,8 @@ function load() {
   } catch (e) {
     // 손상된 데이터는 지우지 않고 백업 키로 보관한 뒤 샘플로 시작
     try { localStorage.setItem(LS_KEY + '_corrupt_backup', raw); } catch (_) {}
-    console.warn('[BLACKBOXY] 저장 데이터를 읽지 못해 백업 후 기본 화면으로 시작합니다.', e);
-    return [...SEED];
+    console.warn('[BLACKBOXY] 저장 데이터를 읽지 못해 백업 후 빈 보관함으로 시작합니다.', e);
+    return [];
   }
 }
 var persistWarned = false;
@@ -1148,13 +1220,19 @@ const BOXY_MOODS = [
           return fav ? `"${fav.title.slice(0,14)}..." 이거 진짜 맛집이네요 😋` : '⭐를 눌러 소중한 기억을 표시해보세요'; },
   () => `총 ${prompts.length}개의 기억을 지키고 있어요 🤖`,
 ];
+const EMPTY_MOODS = [
+  '저 아직 기억할 게 없어요 👀',
+  '첫 프롬프트를 저한테 맡겨주세요 📦',
+  '아래 공개 프롬프트부터 구경해볼까요? 🧱',
+];
 let moodIndex = 0;
 function rotateMood() {
   const el = document.getElementById('hero-status');
   el.classList.add('fading');
   setTimeout(() => {
-    moodIndex = (moodIndex + 1) % BOXY_MOODS.length;
-    el.textContent = BOXY_MOODS[moodIndex]();
+    const list = prompts.length === 0 ? EMPTY_MOODS.map(t => () => t) : BOXY_MOODS;
+    moodIndex = (moodIndex + 1) % list.length;
+    el.textContent = list[moodIndex]();
     el.classList.remove('fading');
   }, 400);
 }
@@ -1162,7 +1240,7 @@ function rotateMood() {
 /* ═══════════════ RENDER: HERO ═══════════════ */
 function renderHero() {
   const weekCount = prompts.filter(p => isThisWeek(p.createdAt)).length;
-  document.getElementById('hero-status').textContent = BOXY_MOODS[0]();
+  document.getElementById('hero-status').textContent = prompts.length === 0 ? EMPTY_MOODS[0] : BOXY_MOODS[0]();
 
   document.getElementById('memory-lines').innerHTML = `
     <span class="mline">📦 기억하고 있는 프롬프트 <b>${prompts.length}개</b></span>
@@ -1187,7 +1265,7 @@ function pubCardHTML(p) {
     <div class="pub-tags">${p.tags.map(t => `<span class="pub-tag">#${esc(t)}</span>`).join('')}</div>
     <div class="pub-actions">
       <button class="pub-btn view" onclick="openView('${p.id}')">내용 보기</button>
-      <button class="pub-btn grab ${grabbed ? 'grabbed' : ''}" id="grab-${p.id}" onclick="grabPublic('${p.id}', event)">
+      <button class="pub-btn grab ${grabbed ? 'grabbed' : ''}" onclick="grabPublic('${p.id}', event)">
         ${grabbed ? '✓ 담아둔 기억' : '🧺 내 서랍에 담기'}
       </button>
     </div>
@@ -1282,7 +1360,7 @@ function closeView() {
   if (!m.classList.contains('open')) return;
   m.classList.remove('open');
   viewingPubId = null;
-  if (!document.getElementById('modal').classList.contains('open')) lockScroll(false);
+  if (!anyModalOpen()) lockScroll(false);
   if (lastFocus && document.contains(lastFocus)) lastFocus.focus();
 }
 async function copyViewPrompt() {
@@ -1354,11 +1432,23 @@ function renderWall() {
 
   // ── Empty State: 기억이 아예 0개일 때 (신규 사용자) ──
   if (prompts.length === 0 && !q && !activeDrawer) {
+    const samples = EMPTY_SAMPLE_IDS.map(id => PUBLIC_PROMPTS.find(p => p.id === id)).filter(Boolean);
     wall.innerHTML = `<div class="empty-state">
-      <img src="boxy-icon.png" alt="BOXY">
-      <div class="empty-state-msg">아직 서랍이 비어 있어요.<br>첫 번째 프롬프트를 주워 담아볼까요?</div>
+      <img src="boxy-icon.png" alt="" width="96" height="96">
+      <div class="empty-state-msg">아직 저장된 기억이 없어요.<br>잘 만든 프롬프트 하나부터 박시에게 맡겨볼까요?</div>
       <div class="empty-state-sub">저장한 프롬프트는 이곳 기억 보관함에 차곡차곡 쌓여요</div>
-      <button class="save-fab" onclick="openModal()">＋ 첫 프롬프트 주워담기</button>
+      <button class="save-fab" onclick="openModal()">＋ 첫 프롬프트 저장하기</button>
+      <div class="empty-state-hint">다른 브라우저에서 쓰던 백업 파일이 있나요? <button type="button" class="link-btn" onclick="openDataModal()">백업 불러오기</button></div>
+      <div class="empty-samples-wrap">
+        <div class="empty-samples-head">
+          <div>
+            <div class="empty-samples-title">🧺 뭘 저장할지 모르겠다면, 이것부터 담아보세요</div>
+            <div class="empty-samples-sub">다른 사람들이 모은 공개 프롬프트예요 · 담기 전엔 내 보관함에 저장되지 않아요</div>
+          </div>
+          <button type="button" class="link-btn" onclick="document.getElementById('pubwall-wrap').scrollIntoView({behavior:'smooth'})">Prompt Wall 전체 보기 →</button>
+        </div>
+        <div class="pub-grid">${samples.map(pubCardHTML).join('')}</div>
+      </div>
     </div>`;
     return;
   }
@@ -1382,6 +1472,7 @@ function renderWall() {
       <button class="paper-menu-btn" aria-label="더보기 메뉴" aria-haspopup="true" onclick="toggleMenu('${p.id}', event)">⋯</button>
       <div class="paper-menu" id="menu-${p.id}">
         <button class="pmenu-item" onclick="copyPrompt('${p.id}', event)">📋 꺼내쓰기</button>
+        <button class="pmenu-item" onclick="openEditModal('${p.id}', event)">✏️ 편집하기</button>
         <button class="pmenu-item" onclick="toggleStar('${p.id}', event)">${p.starred ? '☆ 즐겨찾기 해제' : '⭐ 즐겨찾기'}</button>
         <button class="pmenu-item danger" onclick="deletePrompt('${p.id}', event)">🗑 삭제하기</button>
       </div>
@@ -1500,8 +1591,37 @@ function deletePrompt(id, e) {
 /* ═══════════════ MODAL + SAVE FLY ANIMATION ═══════════════ */
 let lastFocus = null;
 function lockScroll(on) { document.body.classList.toggle('modal-open', on); }
+let editingId = null;          // null = 새로 저장, 문자열 = 편집 중인 기억 id
+let drawerBeforeEdit = null;
+const MODAL_TEXT = {
+  create: { title: '새 기억 주워담기<small>박시가 서랍에 잘 보관해둘게요</small>', btn: '📦 블랙박시에 저장' },
+  edit:   { title: '프롬프트 수정<small>고친 내용으로 다시 보관해둘게요</small>',   btn: '✏️ 수정 내용 저장' },
+};
+function setModalMode(mode) {
+  document.getElementById('save-modal-title').innerHTML = MODAL_TEXT[mode].title;
+  document.getElementById('m-save-btn').textContent = MODAL_TEXT[mode].btn;
+}
+function openEditModal(id, e) {
+  if (e) e.stopPropagation();
+  closeAllMenus();
+  const p = prompts.find(x => x.id === id);
+  if (!p) return;
+  const trigger = document.querySelector(`#paper-${id} .paper-menu-btn`);
+  editingId = id;
+  drawerBeforeEdit = selectedDrawer;
+  selectedDrawer = p.drawer;
+  openModal();
+  if (trigger) lastFocus = trigger;
+  setModalMode('edit');
+  document.getElementById('m-title').value = p.title;
+  document.getElementById('m-body').value = p.body;
+  document.getElementById('m-tags').value = p.tags.join(', ');
+  document.getElementById('m-src').value = p.src || '';
+}
+function anyModalOpen() { return !!document.querySelector('.modal-bg.open'); }
 function openModal() {
   lastFocus = document.activeElement;
+  if (!editingId) setModalMode('create');
   document.getElementById('modal').classList.add('open');
   lockScroll(true);
   renderModalDrawers();
@@ -1512,9 +1632,15 @@ function closeModal() {
   const m = document.getElementById('modal');
   if (!m.classList.contains('open')) return;
   m.classList.remove('open');
-  if (!document.getElementById('view-modal').classList.contains('open')) lockScroll(false);
+  if (!anyModalOpen()) lockScroll(false);
   if (lastFocus && document.contains(lastFocus)) lastFocus.focus();
   ['m-title','m-body','m-tags','m-src'].forEach(id => document.getElementById(id).value = '');
+  if (editingId) {                     // 편집 취소/완료 → 신규 저장 모드로 되돌림
+    editingId = null;
+    if (drawerBeforeEdit) selectedDrawer = drawerBeforeEdit;
+    drawerBeforeEdit = null;
+    setModalMode('create');
+  }
 }
 function renderModalDrawers() {
   document.getElementById('m-drawers').innerHTML = DRAWERS.map(d =>
@@ -1534,6 +1660,24 @@ function savePrompt() {
   }
   const tags = document.getElementById('m-tags').value.split(',').map(t => t.trim()).filter(Boolean);
   const src = document.getElementById('m-src').value.trim();
+
+  // ── 편집 모드: id·copies·starred·createdAt 등 나머지 필드는 그대로 두고 바뀐 값만 교체 ──
+  if (editingId) {
+    const id = editingId;
+    const p = prompts.find(x => x.id === id);
+    if (!p) { closeModal(); showToast('🤔 이 기억을 찾을 수 없어요. 이미 삭제됐을 수 있어요', 'normal'); return; }
+    const before = { title: p.title, body: p.body, tags: p.tags, src: p.src, drawer: p.drawer, updatedAt: p.updatedAt };
+    Object.assign(p, { title, body, tags, src, drawer: selectedDrawer, updatedAt: Date.now() });
+    if (!persist()) { Object.assign(p, before); if (before.updatedAt == null) delete p.updatedAt; return; }
+    closeModal();
+    renderAll();
+    showToast('✏️ 고친 내용으로 다시 보관했어요', 'happy');
+    boxyReact('happy');
+    const btn = document.querySelector(`#paper-${id} .paper-menu-btn`);
+    if (btn) btn.focus();
+    return;
+  }
+
   prompts.unshift({
     id: 'p' + Date.now(),
     title, body, tags, src,
@@ -1590,6 +1734,213 @@ function spawnPixels(n) {
   }
 }
 
+
+/* ═══════════════ Stage 2: 백업·복원 ═══════════════ */
+const EMPTY_SAMPLE_IDS = ['pub1', 'pub4', 'pub6'];   // 빈 상태에 보여줄 공개 프롬프트 (블로그·카피·업무)
+const BACKUP_APP = 'BLACKBOXY';
+const BACKUP_VERSION = 1;
+const MAX_BACKUP_BYTES = 5 * 1024 * 1024;            // 5MB
+const MAX_BACKUP_ITEMS = 5000;
+const RESTORE_SNAPSHOT_PREFIX = 'blackbox_memories_before_restore_';
+let pendingRestore = null;                            // 검증을 통과한 복원 대기 데이터
+
+function localDateStamp(d = new Date()) {
+  const z = n => String(n).padStart(2, '0');
+  return `${d.getFullYear()}-${z(d.getMonth() + 1)}-${z(d.getDate())}`;
+}
+function openDataModal() {
+  lastFocus = document.activeElement;
+  showDataStep('main');
+  document.getElementById('data-count').textContent = `${prompts.length}개`;
+  document.getElementById('data-export-btn').disabled = prompts.length === 0;
+  document.getElementById('data-export-btn').style.opacity = prompts.length === 0 ? '.45' : '';
+  document.getElementById('data-modal').classList.add('open');
+  lockScroll(true);
+  setTimeout(() => document.getElementById(prompts.length ? 'data-export-btn' : 'data-pick-btn').focus(), 60);
+}
+function closeDataModal() {
+  const m = document.getElementById('data-modal');
+  if (!m.classList.contains('open')) return;
+  m.classList.remove('open');
+  pendingRestore = null;
+  if (!anyModalOpen()) lockScroll(false);
+  if (lastFocus && document.contains(lastFocus)) lastFocus.focus();
+}
+function showDataStep(step, errorMsg = '') {
+  document.getElementById('data-main').hidden = step !== 'main';
+  document.getElementById('data-confirm').hidden = step !== 'confirm';
+  document.getElementById('data-error').textContent = errorMsg;
+}
+
+/* 백업 파일 만들기 — 서버 없이 브라우저에서 바로 다운로드 */
+function exportBackup() {
+  if (!prompts.length) { showToast('🤔 아직 백업할 기억이 없어요', 'normal'); return; }
+  const payload = {
+    app: BACKUP_APP,
+    version: BACKUP_VERSION,
+    exportedAt: new Date().toISOString(),
+    count: prompts.length,
+    memories: prompts.map(p => Object.assign({}, p)),
+  };
+  try {
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `blackboxy-backup-${localDateStamp()}.json`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1500);
+    showToast(`💾 기억 ${prompts.length}개를 백업 파일로 저장했어요`, 'happy');
+    boxyReact('happy');
+  } catch (e) {
+    showToast('😵 백업 파일을 만들지 못했어요. 다시 시도해 주세요', 'normal');
+  }
+}
+
+/* 백업 파일 검증 → { memories, skipped } 또는 에러 메시지(throw) */
+function parseBackup(text) {
+  let data;
+  try { data = JSON.parse(text); }
+  catch (e) { throw new Error('파일 내용을 읽을 수 없어요. BLACKBOXY 백업 파일(.json)이 맞는지 확인해 주세요.'); }
+
+  let list;
+  if (Array.isArray(data)) {
+    list = data;                                        // 예전 방식(보관함 내용을 그대로 복사한 파일)도 허용
+  } else if (data && typeof data === 'object' && data.app === BACKUP_APP && Array.isArray(data.memories)) {
+    list = data.memories;
+  } else if (data && typeof data === 'object' && Array.isArray(data.memories)) {
+    throw new Error('BLACKBOXY에서 만든 백업 파일이 아닌 것 같아요.');
+  } else {
+    throw new Error('BLACKBOXY 백업 파일 형식이 아니에요.');
+  }
+  if (list.length > MAX_BACKUP_ITEMS) throw new Error(`기억이 너무 많아요 (최대 ${MAX_BACKUP_ITEMS.toLocaleString()}개까지 불러올 수 있어요).`);
+
+  const memories = [];
+  let skipped = 0;
+  list.forEach((raw, i) => {
+    const p = normalizePrompt(raw, i);
+    if (p && p.title.trim() && p.body.trim()) memories.push(p);
+    else skipped++;
+  });
+  if (!memories.length) throw new Error('이 파일에는 불러올 수 있는 기억이 없어요.');
+  return { memories, skipped };
+}
+
+document.getElementById('restore-file').addEventListener('change', e => {
+  const input = e.target;
+  const file = input.files && input.files[0];
+  input.value = '';                                     // 같은 파일을 다시 골라도 동작하도록
+  if (!file) return;
+  if (file.size > MAX_BACKUP_BYTES) {
+    showDataStep('main', '파일이 너무 커요. 5MB 이하의 백업 파일만 불러올 수 있어요.');
+    return;
+  }
+  const reader = new FileReader();
+  reader.onerror = () => showDataStep('main', '파일을 읽지 못했어요. 다시 시도해 주세요.');
+  reader.onload = () => {
+    try {
+      pendingRestore = parseBackup(String(reader.result));
+      renderRestoreConfirm();
+    } catch (err) {
+      pendingRestore = null;
+      showDataStep('main', '⚠️ ' + err.message);
+      showToast('🤔 이 파일은 불러올 수 없어요', 'normal');
+    }
+  };
+  reader.readAsText(file, 'utf-8');
+});
+
+function renderRestoreConfirm() {
+  const n = pendingRestore.memories.length, cur = prompts.length;
+  document.getElementById('confirm-title').textContent = `백업 파일에서 기억 ${n}개를 찾았어요`;
+  document.getElementById('confirm-desc').textContent =
+    (pendingRestore.skipped ? `내용이 비어 있는 ${pendingRestore.skipped}개는 제외했어요. ` : '') +
+    (cur ? `지금 이 브라우저에는 기억 ${cur}개가 있어요. 어떻게 불러올까요?` : '지금 보관함은 비어 있어요.');
+  const choices = cur ? `
+      <button type="button" class="data-choice" onclick="applyRestore('merge')">
+        <b>➕ 기존 기억에 더하기</b>
+        <span>지금 기억 ${cur}개는 그대로 두고 ${n}개를 추가해요. 같은 내용이 있으면 둘 다 남아요.</span>
+      </button>
+      <button type="button" class="data-choice warn" onclick="applyRestore('replace')">
+        <b>🔄 백업 내용으로 바꾸기</b>
+        <span>지금 기억 ${cur}개 대신 백업의 ${n}개만 남아요. 바꾸기 전 기억은 이 브라우저에 따로 보관해둬요.</span>
+      </button>` : `
+      <button type="button" class="data-choice" onclick="applyRestore('merge')">
+        <b>📥 기억 ${n}개 불러오기</b>
+        <span>백업 파일의 기억을 내 보관함에 넣어요.</span>
+      </button>`;
+  document.getElementById('confirm-choices').innerHTML = choices;
+  showDataStep('confirm');
+  setTimeout(() => { const b = document.querySelector('#confirm-choices .data-choice'); if (b) b.focus(); }, 30);
+}
+function cancelRestore() {
+  pendingRestore = null;
+  showDataStep('main');
+  document.getElementById('data-pick-btn').focus();
+}
+
+/* 교체 전에 지금 상태를 따로 보관 (최근 3개만 유지) */
+function snapshotBeforeRestore() {
+  let current;
+  try { current = localStorage.getItem(LS_KEY); } catch (e) { return false; }
+  if (current == null) current = JSON.stringify(prompts);
+  try {
+    localStorage.setItem(RESTORE_SNAPSHOT_PREFIX + Date.now(), current);
+    const keys = [];
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      if (k && k.startsWith(RESTORE_SNAPSHOT_PREFIX)) keys.push(k);
+    }
+    keys.sort().slice(0, -3).forEach(k => localStorage.removeItem(k));
+    return true;
+  } catch (e) { return false; }
+}
+
+function applyRestore(mode) {
+  if (!pendingRestore) return;
+  const incoming = pendingRestore.memories.map(p => Object.assign({}, p));
+  const previous = prompts;
+
+  if (mode === 'replace' && prompts.length) {
+    if (!snapshotBeforeRestore()) {
+      showDataStep('main', '⚠️ 지금 기억을 안전하게 보관할 공간이 부족해서 바꾸지 않았어요. 먼저 백업 파일을 저장하거나 "기존 기억에 더하기"를 이용해 주세요.');
+      pendingRestore = null;
+      return;
+    }
+    prompts = dedupeIds(incoming, new Set());
+  } else {
+    // 더하기: 기존 id와 겹치면 새 id 발급 (제목이 같아도 지우지 않음 — 손실보다 중복이 나음)
+    const used = new Set(prompts.map(p => p.id));
+    prompts = prompts.concat(dedupeIds(incoming, used));
+  }
+
+  if (!persist()) {                                     // 저장 실패 → 원래대로 되돌림
+    prompts = previous;
+    renderAll();
+    showDataStep('main', '⚠️ 저장 공간이 부족해서 불러오지 못했어요. 기존 기억은 그대로예요.');
+    pendingRestore = null;
+    return;
+  }
+  const n = incoming.length;
+  pendingRestore = null;
+  activeDrawer = null;
+  closeDataModal();
+  renderAll();
+  showToast(mode === 'replace' ? `🔄 백업에서 기억 ${n}개를 복원했어요` :
+            (previous.length ? `➕ 기존 기억에 ${n}개를 더했어요` : `📥 기억 ${n}개를 불러왔어요`), 'happy');
+  boxyReact('happy');
+  spawnPixels(6);
+}
+function dedupeIds(list, used) {
+  return list.map((p, i) => {
+    if (used.has(p.id)) p.id = 'r' + Date.now().toString(36) + '_' + i + Math.random().toString(36).slice(2, 6);
+    used.add(p.id);
+    return p;
+  });
+}
+
 /* ═══════════════ TOAST + BOXY REACTIONS ═══════════════ */
 let toastTimer;
 function showToast(msg, eyes = 'normal') {
@@ -1629,7 +1980,7 @@ document.addEventListener('keydown', e => {
     e.preventDefault();
     searchInput.focus();
   }
-  if (e.key === 'Escape') { closeAllMenus(); closeModal(); closeView(); }
+  if (e.key === 'Escape') { closeAllMenus(); closeModal(); closeView(); closeDataModal(); }
   const t = e.target;
   if ((e.key === 'Enter' || e.key === ' ') && t && t.getAttribute && t.getAttribute('role') === 'button' && t.tagName !== 'BUTTON') {
     e.preventDefault(); t.click();

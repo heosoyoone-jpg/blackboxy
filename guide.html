@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>AI별 프롬프트 작성 가이드 — BLACKBOXY</title>
+<meta name="description" content="ChatGPT, Claude, Midjourney, Cursor, Gemini별 프롬프트 작성 가이드를 확인하세요.">
+<link rel="canonical" href="https://blackboxy.app/guide.html">
+<meta name="theme-color" content="#101114">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta property="og:site_name" content="BLACKBOXY">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:type" content="website">
+<meta property="og:title" content="AI별 프롬프트 작성 가이드">
+<meta property="og:description" content="ChatGPT, Claude, Midjourney, Cursor, Gemini별 프롬프트 작성 가이드를 확인하세요.">
+<meta property="og:url" content="https://blackboxy.app/guide.html">
+<meta property="og:image" content="https://blackboxy.app/boxy-icon.png">
+<meta property="og:image:width" content="256">
+<meta property="og:image:height" content="256">
+<meta property="og:image:alt" content="BLACKBOXY 마스코트 박시">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AI별 프롬프트 작성 가이드">
+<meta name="twitter:description" content="ChatGPT, Claude, Midjourney, Cursor, Gemini별 프롬프트 작성 가이드를 확인하세요.">
+<meta name="twitter:image" content="https://blackboxy.app/boxy-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="style.css">
+<!-- [TODO] GA4 측정 태그 · Search Console 인증 메타 · AdSense 스크립트는 ID 확보 후 여기에 삽입 -->
+</head>
+<body>
+<header class="site-nav">
+  <a class="nav-brand" href="index.html" aria-label="BLACKBOXY 홈">
+    <img src="boxy-icon.png" alt="BLACKBOXY 로고" width="26" height="26">
+    <span class="nav-brand-pixel">BLACKBOXY</span>
+  </a>
+  <nav class="nav-links" aria-label="주요 메뉴">
+    <a class="nav-link" href="index.html">홈</a><a class="nav-link" href="how-to.html">사용법</a><a class="nav-link active" href="guide.html" aria-current="page">Prompt Guide</a><a class="nav-link" href="blog.html">Blog</a><a class="nav-link" href="about.html">About</a>
+  </nav>
+  <a class="nav-cta" href="index.html">📥 무료로 시작하기</a>
+</header>
+<main class="content-wrap wide">
+
+<div class="page-eyebrow">Prompt Guide</div>
+<h1 class="page-title">AI별 프롬프트 작성 가이드</h1>
+<p class="page-subtitle">ChatGPT, Claude, Midjourney, Cursor, Gemini — 도구마다 잘 먹히는 프롬프트 방식이 다릅니다.</p>
+
+<div class="index-intro">
+  <div class="article">
+    <p>같은 목적이라도 AI마다 반응하는 방식이 다릅니다. 어떤 모델은 역할극(롤플레이) 지시에 강하고, 어떤 모델은 구조화된 조건 나열에 더 잘 반응합니다. 아래 가이드에서 각 AI별로 실전에서 바로 쓸 수 있는 프롬프트 작성법을 정리했어요.</p>
+  </div>
+</div>
+
+<div class="card-grid">
+
+  <a class="post-card" href="guide-chatgpt.html">
+    <span class="post-card-tag">🟢 ChatGPT</span>
+    <div class="post-card-title">ChatGPT 프롬프트 잘 쓰는 법</div>
+    <div class="post-card-desc">역할 지정, 단계별 지시, 출력 형식 고정까지 — GPT 계열 모델에서 안정적인 결과를 뽑는 구조</div>
+  </a>
+
+  <a class="post-card" href="guide-claude.html">
+    <span class="post-card-tag">🟠 Claude</span>
+    <div class="post-card-title">Claude 프롬프트 구조 설계법</div>
+    <div class="post-card-desc">긴 문서 처리와 논리적 추론에 강한 Claude에게 맥락을 정확히 전달하는 프롬프트 구성</div>
+  </a>
+
+  <a class="post-card" href="guide-midjourney.html">
+    <span class="post-card-tag">🟡 Midjourney</span>
+    <div class="post-card-title">Midjourney 프롬프트 공식</div>
+    <div class="post-card-desc">피사체 → 스타일 → 조명 → 카메라 → 파라미터 순서로 쌓는 이미지 프롬프트 작성 공식</div>
+  </a>
+
+  <a class="post-card" href="guide-cursor.html">
+    <span class="post-card-tag">🔵 Cursor</span>
+    <div class="post-card-title">Cursor 프롬프트 실전 예시</div>
+    <div class="post-card-desc">코드베이스 맥락을 활용한 지시, 리팩토링 요청, 버그 수정 프롬프트까지</div>
+  </a>
+
+  <a class="post-card" href="guide-gemini.html">
+    <span class="post-card-tag">🟣 Gemini</span>
+    <div class="post-card-title">Gemini 활용법</div>
+    <div class="post-card-desc">멀티모달 강점을 살리는 프롬프트와 구글 생태계 연동 활용 팁</div>
+  </a>
+
+</div>
+
+<div class="cta-box">
+  <div class="cta-box-title">가이드를 읽으면서 만든 프롬프트, 잊어버리기 전에 저장하세요</div>
+  <div class="cta-box-sub">BLACKBOXY에 서랍별로 정리해두면 다음에 30초 만에 찾을 수 있어요</div>
+  <a class="cta-box-btn" href="index.html">📥 BLACKBOXY 열기</a>
+</div>
+
+</main>
+
+<!-- ══ ADSENSE SLOT — 승인 후 style="display:none" 제거하고 광고 코드 삽입 ══ -->
+<div class="adsense-slot-wrap" style="display:none;">
+  <div class="adsense-slot">
+    <span class="adsense-tag">AD</span>
+    <span>광고 영역 (Google AdSense)</span>
+  </div>
+</div>
+
+<footer class="site-footer-wrap">
+  <div class="footer-columns">
+    <div class="footer-brand-col">
+      <img src="boxy-icon.png" alt="" width="36" height="36" loading="lazy">
+      <div>
+        <div class="footer-brand">BLACKBOXY</div>
+        <div class="footer-tag">기억을 수집하는 로봇, 박시가 만든<br>프롬프트 서랍장 🗄️</div>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Resources</div>
+      <div class="footer-col-links">
+        <a href="how-to.html">사용법</a>
+        <a href="guide.html">Prompt Guide</a>
+        <a href="blog.html">Blog</a>
+        <a href="about.html">About</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Legal</div>
+      <div class="footer-col-links">
+        <a href="privacy.html">개인정보처리방침</a>
+        <a href="terms.html">이용약관</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Product</div>
+      <div class="footer-col-links">
+        <a href="index.html">웹앱 열기</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copyright">© 2026 BLACKBOXY. All rights reserved.</div>
+    <div class="footer-contact-group">
+      <span class="footer-contact-label">📢 광고 및 협업 문의</span>
+      <a class="footer-contact" href="mailto:heosoyoone@gmail.com">✉️ heosoyoone@gmail.com</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

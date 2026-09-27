@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>AI 할루시네이션을 줄이는 프롬프트 기법 — BLACKBOXY</title>
+<meta name="description" content="AI가 근거 없는 답변을 하지 않도록 프롬프트 작성 단계에서 할루시네이션을 줄이는 방법을 알아보세요.">
+<link rel="canonical" href="https://blackboxy.app/blog-reduce-hallucination.html">
+<meta name="theme-color" content="#101114">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta property="og:site_name" content="BLACKBOXY">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AI 할루시네이션을 줄이는 프롬프트 기법">
+<meta property="og:description" content="AI가 근거 없는 답변을 하지 않도록 프롬프트 작성 단계에서 할루시네이션을 줄이는 방법을 알아보세요.">
+<meta property="og:url" content="https://blackboxy.app/blog-reduce-hallucination.html">
+<meta property="og:image" content="https://blackboxy.app/boxy-icon.png">
+<meta property="og:image:width" content="256">
+<meta property="og:image:height" content="256">
+<meta property="og:image:alt" content="BLACKBOXY 마스코트 박시">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AI 할루시네이션을 줄이는 프롬프트 기법">
+<meta name="twitter:description" content="AI가 근거 없는 답변을 하지 않도록 프롬프트 작성 단계에서 할루시네이션을 줄이는 방법을 알아보세요.">
+<meta name="twitter:image" content="https://blackboxy.app/boxy-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "AI 할루시네이션을 줄이는 프롬프트 기법",
+  "description": "AI가 근거 없는 답변을 하지 않도록 프롬프트 작성 단계에서 할루시네이션을 줄이는 방법을 알아보세요.",
+  "url": "https://blackboxy.app/blog-reduce-hallucination.html",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://blackboxy.app/blog-reduce-hallucination.html"
+  },
+  "inLanguage": "ko-KR",
+  "image": "https://blackboxy.app/boxy-icon.png",
+  "publisher": {
+    "@type": "Organization",
+    "name": "BLACKBOXY",
+    "url": "https://blackboxy.app/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://blackboxy.app/boxy-icon.png",
+      "width": 256,
+      "height": 256
+    }
+  },
+  "author": {
+    "@type": "Organization",
+    "name": "BLACKBOXY 팀",
+    "url": "https://blackboxy.app/about.html"
+  }
+}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="style.css">
+<!-- [TODO] GA4 측정 태그 · Search Console 인증 메타 · AdSense 스크립트는 ID 확보 후 여기에 삽입 -->
+</head>
+<body>
+<header class="site-nav">
+  <a class="nav-brand" href="index.html" aria-label="BLACKBOXY 홈">
+    <img src="boxy-icon.png" alt="BLACKBOXY 로고" width="26" height="26">
+    <span class="nav-brand-pixel">BLACKBOXY</span>
+  </a>
+  <nav class="nav-links" aria-label="주요 메뉴">
+    <a class="nav-link" href="index.html">홈</a><a class="nav-link" href="how-to.html">사용법</a><a class="nav-link" href="guide.html">Prompt Guide</a><a class="nav-link active" href="blog.html" aria-current="page">Blog</a><a class="nav-link" href="about.html">About</a>
+  </nav>
+  <a class="nav-cta" href="index.html">📥 무료로 시작하기</a>
+</header>
+<main class="content-wrap">
+
+<div class="page-eyebrow">Blog</div>
+<h1 class="page-title">AI 할루시네이션을 줄이는 프롬프트 기법</h1>
+<p class="page-subtitle">AI가 그럴듯한 거짓말을 하지 않도록, 질문 단계에서 막을 수 있습니다.</p>
+
+<div class="page-meta">
+  <span>BLACKBOXY 팀</span>
+  <span class="dot"></span>
+  <span>약 6분</span>
+</div>
+
+<div class="article">
+
+<p>할루시네이션(hallucination)은 AI가 사실이 아닌 내용을 마치 사실인 것처럼 자신 있게 답하는 현상을 말합니다. 완전히 없앨 수는 없지만, 프롬프트 작성 방식으로 상당 부분 줄일 수 있습니다.</p>
+
+<h2>1. "모르면 모른다고 해줘"를 명시하세요</h2>
+<p>AI는 별다른 지시가 없으면 어떻게든 답을 만들어내려는 경향이 있습니다. "확실하지 않으면 추측하지 말고 모른다고 답해줘"라는 문장을 추가하는 것만으로도 근거 없는 답변이 줄어듭니다.</p>
+
+<div class="prompt-box">
+<div class="prompt-box-text">이 질문에 답할 때, 확실한 근거가 없다면
+추측하지 말고 "확실하지 않음"이라고 답해줘.</div>
+</div>
+
+<h2>2. 출처를 요구하세요</h2>
+<p>"이 정보의 출처가 뭐야?"라고 물으면, AI가 실제로 알고 있는 정보인지 아니면 그럴듯하게 지어낸 것인지 판단하는 데 도움이 됩니다. 다만 AI가 제시하는 출처 자체도 검증이 필요하다는 점은 기억하세요.</p>
+
+<h2>3. 문서를 근거로 답하도록 제한하세요</h2>
+<p>특정 문서나 자료를 기반으로 답변받고 싶다면, "아래 문서에 있는 내용만 근거로 답해줘. 문서에 없는 내용은 답하지 마"처럼 범위를 명확히 제한하세요.</p>
+
+<div class="prompt-box">
+<div class="prompt-box-text">아래 문서 내용만 근거로 답해줘.
+문서에 없는 내용이면 "문서에서 확인할 수 없음"이라고 답해줘.
+
+[문서 내용]</div>
+</div>
+
+<h2>4. 숫자와 통계는 반드시 재확인하세요</h2>
+<p>AI가 제시하는 구체적인 수치, 날짜, 통계는 특히 할루시네이션이 발생하기 쉬운 영역입니다. 중요한 의사결정에 쓰일 숫자라면 반드시 원출처에서 다시 확인하는 습관을 들이세요.</p>
+
+<h2>5. 단계별로 검증하며 진행하세요</h2>
+<p>복잡한 작업을 한 번에 요청하기보다, 단계를 나눠서 각 단계마다 결과를 확인하며 진행하면 오류가 누적되는 것을 막을 수 있습니다.</p>
+
+<h2>6. 반대 관점에서 다시 검증시키세요</h2>
+<div class="prompt-box">
+<div class="prompt-box-text">방금 네가 한 답변에서 틀렸을 수도 있는
+부분이 있다면 스스로 점검해서 알려줘.</div>
+</div>
+<p>AI에게 자기 답변을 스스로 재검토하게 하는 것도 오류를 줄이는 데 효과적인 방법입니다.</p>
+
+<div class="callout">
+  ⚠️ 어떤 프롬프트 기법을 쓰더라도 할루시네이션을 완전히 없앨 수는 없습니다. 중요한 정보일수록 사람이 최종 확인하는 과정은 생략하지 마세요.
+</div>
+
+</div>
+
+<div class="cta-box">
+  <div class="cta-box-title">검증된 프롬프트, 표시해두고 재사용하세요</div>
+  <div class="cta-box-sub">BLACKBOXY 즐겨찾기로 신뢰할 수 있는 프롬프트만 따로 모아두세요</div>
+  <a class="cta-box-btn" href="index.html">📥 BLACKBOXY 열기</a>
+</div>
+
+<div class="related-box">
+  <div class="related-title">함께 보면 좋은 글</div>
+  <div class="related-links">
+    <a class="related-link" href="guide-claude.html"><span class="arrow">→</span> Claude 프롬프트 구조 설계법</a>
+    <a class="related-link" href="blog-good-vs-bad-prompts.html"><span class="arrow">→</span> 좋은 프롬프트와 나쁜 프롬프트의 차이</a>
+    <a class="related-link" href="blog-prompt-engineering-basics.html"><span class="arrow">→</span> 프롬프트 엔지니어링이란 무엇인가</a>
+  </div>
+</div>
+
+</main>
+
+<!-- ══ ADSENSE SLOT — 승인 후 style="display:none" 제거하고 광고 코드 삽입 ══ -->
+<div class="adsense-slot-wrap" style="display:none;">
+  <div class="adsense-slot">
+    <span class="adsense-tag">AD</span>
+    <span>광고 영역 (Google AdSense)</span>
+  </div>
+</div>
+
+<footer class="site-footer-wrap">
+  <div class="footer-columns">
+    <div class="footer-brand-col">
+      <img src="boxy-icon.png" alt="" width="36" height="36" loading="lazy">
+      <div>
+        <div class="footer-brand">BLACKBOXY</div>
+        <div class="footer-tag">기억을 수집하는 로봇, 박시가 만든<br>프롬프트 서랍장 🗄️</div>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Resources</div>
+      <div class="footer-col-links">
+        <a href="how-to.html">사용법</a>
+        <a href="guide.html">Prompt Guide</a>
+        <a href="blog.html">Blog</a>
+        <a href="about.html">About</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Legal</div>
+      <div class="footer-col-links">
+        <a href="privacy.html">개인정보처리방침</a>
+        <a href="terms.html">이용약관</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Product</div>
+      <div class="footer-col-links">
+        <a href="index.html">웹앱 열기</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copyright">© 2026 BLACKBOXY. All rights reserved.</div>
+    <div class="footer-contact-group">
+      <span class="footer-contact-label">📢 광고 및 협업 문의</span>
+      <a class="footer-contact" href="mailto:heosoyoone@gmail.com">✉️ heosoyoone@gmail.com</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

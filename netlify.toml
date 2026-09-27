@@ -1,0 +1,54 @@
+# BLACKBOXY — Netlify 정적 사이트 설정 (빌드 없음, 폴더 그대로 배포)
+[build]
+  publish = "."
+
+# 404는 루트의 404.html을 Netlify가 자동으로 사용합니다.
+
+# 대표 도메인이 연결되면 아래 주석을 해제해 netlify.app 주소를 대표 도메인으로 모으세요.
+# [[redirects]]
+#   from = "https://blackboxy.netlify.app/*"
+#   to = "https://blackboxy.app/:splat"
+#   status = 301
+#   force = true
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    X-Frame-Options = "DENY"
+    Content-Security-Policy = "frame-ancestors 'none'"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()"
+    Strict-Transport-Security = "max-age=31536000"
+
+# HTML은 항상 최신본 확인
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# 파일명에 해시가 없으므로 1주일만 캐시 (수정 반영 지연 방지)
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/*.png"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/favicon.ico"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/sitemap.xml"
+  [headers.values]
+    Content-Type = "application/xml; charset=utf-8"

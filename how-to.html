@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>BLACKBOXY 사용법 — 프롬프트 저장·검색·백업</title>
+<meta name="description" content="BLACKBOXY로 프롬프트를 저장하고, 태그를 활용하고, 검색하고, 백업하는 방법을 알아보세요.">
+<link rel="canonical" href="https://blackboxy.app/how-to.html">
+<meta name="theme-color" content="#101114">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta property="og:site_name" content="BLACKBOXY">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:type" content="website">
+<meta property="og:title" content="BLACKBOXY 사용법 — 프롬프트 저장·검색·백업">
+<meta property="og:description" content="BLACKBOXY로 프롬프트를 저장하고, 태그를 활용하고, 검색하고, 백업하는 방법을 알아보세요.">
+<meta property="og:url" content="https://blackboxy.app/how-to.html">
+<meta property="og:image" content="https://blackboxy.app/boxy-icon.png">
+<meta property="og:image:width" content="256">
+<meta property="og:image:height" content="256">
+<meta property="og:image:alt" content="BLACKBOXY 마스코트 박시">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="BLACKBOXY 사용법 — 프롬프트 저장·검색·백업">
+<meta name="twitter:description" content="BLACKBOXY로 프롬프트를 저장하고, 태그를 활용하고, 검색하고, 백업하는 방법을 알아보세요.">
+<meta name="twitter:image" content="https://blackboxy.app/boxy-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="style.css">
+<!-- [TODO] GA4 측정 태그 · Search Console 인증 메타 · AdSense 스크립트는 ID 확보 후 여기에 삽입 -->
+</head>
+<body>
+<header class="site-nav">
+  <a class="nav-brand" href="index.html" aria-label="BLACKBOXY 홈">
+    <img src="boxy-icon.png" alt="BLACKBOXY 로고" width="26" height="26">
+    <span class="nav-brand-pixel">BLACKBOXY</span>
+  </a>
+  <nav class="nav-links" aria-label="주요 메뉴">
+    <a class="nav-link" href="index.html">홈</a><a class="nav-link active" href="how-to.html" aria-current="page">사용법</a><a class="nav-link" href="guide.html">Prompt Guide</a><a class="nav-link" href="blog.html">Blog</a><a class="nav-link" href="about.html">About</a>
+  </nav>
+  <a class="nav-cta" href="index.html">📥 무료로 시작하기</a>
+</header>
+<main class="content-wrap">
+
+<div class="page-eyebrow">How to</div>
+<h1 class="page-title">BLACKBOXY 사용법</h1>
+<p class="page-subtitle">주워담고, 정리하고, 꺼내 쓰는 법을 5분 안에 익혀보세요.</p>
+
+<div class="page-meta">
+  <span>BLACKBOXY 팀</span>
+  <span class="dot"></span>
+  <span>가이드</span>
+</div>
+
+<div class="toc">
+  <div class="toc-title">목차</div>
+  <ol>
+    <li><a href="#save">1. 프롬프트 저장하는 방법</a></li>
+    <li><a href="#tags">2. 태그 활용법</a></li>
+    <li><a href="#by-ai">3. AI별 프롬프트 관리하기</a></li>
+    <li><a href="#search">4. 검색 팁</a></li>
+    <li><a href="#backup">5. 백업하는 방법</a></li>
+  </ol>
+</div>
+
+<div class="article">
+
+<h2 id="save">1. 프롬프트 저장하는 방법</h2>
+<p>홈 화면 검색창 아래에 있는 <strong>📥 주워담기</strong> 버튼을 누르면 저장 창이 뜹니다. 제목, 프롬프트 내용, 서랍(카테고리), 태그, 출처를 입력할 수 있어요.</p>
+<ul>
+  <li><strong>제목</strong>: 나중에 알아볼 수 있는 짧은 이름 (예: "만능 분석가 프롬프트")</li>
+  <li><strong>프롬프트 내용</strong>: 실제로 복사해서 쓸 전문. 여기에 붙여넣은 텍스트가 그대로 "꺼내쓰기" 버튼으로 복사돼요</li>
+  <li><strong>서랍</strong>: AI 만능 / 코딩 / 디자인 / 마케팅 / 이미지 / 비즈니스 중 하나를 고르면 카드 색상이 자동으로 정해집니다</li>
+  <li><strong>출처</strong>: 인터넷에서 발견한 프롬프트라면 어디서 가져왔는지(reddit.com 등) 적어두면 나중에 원문을 찾기 쉬워요. 직접 쓴 프롬프트는 비워두면 "✏️ 내가 씀"으로 표시됩니다</li>
+</ul>
+<div class="callout">
+  💡 <strong>팁</strong>: 저장은 브라우저의 로컬 저장소(localStorage)에 이루어집니다. 즉, 별도 회원가입 없이 바로 쓸 수 있지만, 같은 브라우저·같은 기기에서만 데이터가 유지돼요.
+</div>
+
+<h2 id="tags">2. 태그 활용법</h2>
+<p>서랍이 큰 분류라면, 태그는 세부 분류입니다. 예를 들어 "코딩" 서랍 안에서도 <code>#리팩토링</code>, <code>#버그</code>, <code>#React</code> 같은 태그로 더 잘게 나눌 수 있어요.</p>
+<p>태그는 저장할 때 쉼표로 구분해서 여러 개 입력할 수 있고, 검색창에 태그 이름만 입력해도 관련 프롬프트가 바로 필터링됩니다.</p>
+<ul>
+  <li>태그는 <strong>동사보다 명사</strong>로 짓는 게 나중에 찾기 편해요 (예: "정리해줘" ❌ → "리팩토링" ⭕)</li>
+  <li>너무 세분화하지 마세요. 3~5개 정도의 태그를 자주 재사용하는 게 검색에 유리합니다</li>
+</ul>
+
+<h2 id="by-ai">3. AI별 프롬프트 관리하기</h2>
+<p>같은 목적이라도 ChatGPT, Claude, Gemini, Midjourney는 프롬프트 작성 방식이 조금씩 다릅니다. BLACKBOXY에서는 이걸 태그로 구분하는 걸 추천해요.</p>
+<div class="prompt-box">
+  <div class="prompt-box-label">예시 태그 조합</div>
+  <div class="prompt-box-text">제목: 블로그 초안 생성기
+서랍: 마케팅
+태그: #GPT, #블로그, #SEO</div>
+</div>
+<p>이렇게 저장해두면 "이 프롬프트, Claude로 옮기면 어떻게 써야 하지?" 싶을 때 원본을 참고해서 톤만 조정하면 됩니다. AI 이름 자체를 태그로 쓰는 게 나중에 도구를 바꿀 때도 헷갈리지 않는 방법이에요.</p>
+
+<h2 id="search">4. 검색 팁</h2>
+<p>홈 화면 상단의 큰 검색창은 <strong>제목, 본문, 태그</strong>를 한 번에 검색합니다. <kbd>⌘ K</kbd> (또는 <kbd>Ctrl K</kbd>) 단축키로 바로 검색창에 포커스를 줄 수 있어요.</p>
+<ul>
+  <li>정확한 제목이 기억나지 않으면 <strong>핵심 키워드 한 단어</strong>만 쳐보세요 (예: "SEO", "리팩토링")</li>
+  <li>서랍 필터와 검색을 같이 쓰면 범위가 좁혀져서 더 빠르게 찾을 수 있어요</li>
+  <li>상단의 색색 서랍 아이콘을 클릭하면 해당 서랍의 프롬프트만 볼 수 있습니다</li>
+</ul>
+
+<h2 id="backup">5. 백업하는 방법</h2>
+<p>현재 BLACKBOXY는 브라우저 로컬 저장소를 사용하기 때문에, 브라우저 데이터를 지우거나 다른 기기로 옮기면 저장된 프롬프트에 접근할 수 없게 됩니다. 중요한 프롬프트는 아래 방법으로 별도 백업해두는 걸 권장해요.</p>
+<ol>
+  <li>즐겨찾기(⭐)로 표시해둔 프롬프트는 우선적으로 별도 문서에 복사해두기</li>
+  <li>브라우저 개발자 도구(F12) → Application → Local Storage에서 <code>blackbox_memories_v1</code> 키 값을 복사해 텍스트 파일로 보관</li>
+  <li>추후 클라우드 동기화 기능이 추가되면 자동 백업으로 전환 예정입니다</li>
+</ol>
+
+</div>
+
+<div class="cta-box">
+  <div class="cta-box-title">이제 직접 해볼 차례예요</div>
+  <div class="cta-box-sub">첫 프롬프트를 주워담는 데 걸리는 시간, 30초</div>
+  <a class="cta-box-btn" href="index.html">📥 BLACKBOXY 열기</a>
+</div>
+
+<div class="related-box">
+  <div class="related-title">함께 보면 좋은 글</div>
+  <div class="related-links">
+    <a class="related-link" href="guide.html"><span class="arrow">→</span> AI별 프롬프트 작성 가이드</a>
+    <a class="related-link" href="blog-prompt-variables.html"><span class="arrow">→</span> 프롬프트에 변수를 활용하는 법</a>
+    <a class="related-link" href="about.html"><span class="arrow">→</span> BLACKBOXY를 만든 이유</a>
+  </div>
+</div>
+
+</main>
+
+<!-- ══ ADSENSE SLOT — 승인 후 style="display:none" 제거하고 광고 코드 삽입 ══ -->
+<div class="adsense-slot-wrap" style="display:none;">
+  <div class="adsense-slot">
+    <span class="adsense-tag">AD</span>
+    <span>광고 영역 (Google AdSense)</span>
+  </div>
+</div>
+
+<footer class="site-footer-wrap">
+  <div class="footer-columns">
+    <div class="footer-brand-col">
+      <img src="boxy-icon.png" alt="" width="36" height="36" loading="lazy">
+      <div>
+        <div class="footer-brand">BLACKBOXY</div>
+        <div class="footer-tag">기억을 수집하는 로봇, 박시가 만든<br>프롬프트 서랍장 🗄️</div>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Resources</div>
+      <div class="footer-col-links">
+        <a href="how-to.html">사용법</a>
+        <a href="guide.html">Prompt Guide</a>
+        <a href="blog.html">Blog</a>
+        <a href="about.html">About</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Legal</div>
+      <div class="footer-col-links">
+        <a href="privacy.html">개인정보처리방침</a>
+        <a href="terms.html">이용약관</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Product</div>
+      <div class="footer-col-links">
+        <a href="index.html">웹앱 열기</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copyright">© 2026 BLACKBOXY. All rights reserved.</div>
+    <div class="footer-contact-group">
+      <span class="footer-contact-label">📢 광고 및 협업 문의</span>
+      <a class="footer-contact" href="mailto:heosoyoone@gmail.com">✉️ heosoyoone@gmail.com</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

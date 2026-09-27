@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Claude 프롬프트 구조 설계법 — BLACKBOXY</title>
+<meta name="description" content="맥락 전달, XML 태그 활용, 단계적 사고 유도까지 Claude에서 정확한 결과를 얻는 프롬프트 작성법을 알아보세요.">
+<link rel="canonical" href="https://blackboxy.app/guide-claude.html">
+<meta name="theme-color" content="#101114">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta property="og:site_name" content="BLACKBOXY">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Claude 프롬프트 구조 설계법">
+<meta property="og:description" content="맥락 전달, XML 태그 활용, 단계적 사고 유도까지 Claude에서 정확한 결과를 얻는 프롬프트 작성법을 알아보세요.">
+<meta property="og:url" content="https://blackboxy.app/guide-claude.html">
+<meta property="og:image" content="https://blackboxy.app/boxy-icon.png">
+<meta property="og:image:width" content="256">
+<meta property="og:image:height" content="256">
+<meta property="og:image:alt" content="BLACKBOXY 마스코트 박시">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Claude 프롬프트 구조 설계법">
+<meta name="twitter:description" content="맥락 전달, XML 태그 활용, 단계적 사고 유도까지 Claude에서 정확한 결과를 얻는 프롬프트 작성법을 알아보세요.">
+<meta name="twitter:image" content="https://blackboxy.app/boxy-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Claude 프롬프트 구조 설계법",
+  "description": "맥락 전달, XML 태그 활용, 단계적 사고 유도까지 Claude에서 정확한 결과를 얻는 프롬프트 작성법을 알아보세요.",
+  "url": "https://blackboxy.app/guide-claude.html",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://blackboxy.app/guide-claude.html"
+  },
+  "inLanguage": "ko-KR",
+  "image": "https://blackboxy.app/boxy-icon.png",
+  "publisher": {
+    "@type": "Organization",
+    "name": "BLACKBOXY",
+    "url": "https://blackboxy.app/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://blackboxy.app/boxy-icon.png",
+      "width": 256,
+      "height": 256
+    }
+  }
+}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="style.css">
+<!-- [TODO] GA4 측정 태그 · Search Console 인증 메타 · AdSense 스크립트는 ID 확보 후 여기에 삽입 -->
+</head>
+<body>
+<header class="site-nav">
+  <a class="nav-brand" href="index.html" aria-label="BLACKBOXY 홈">
+    <img src="boxy-icon.png" alt="BLACKBOXY 로고" width="26" height="26">
+    <span class="nav-brand-pixel">BLACKBOXY</span>
+  </a>
+  <nav class="nav-links" aria-label="주요 메뉴">
+    <a class="nav-link" href="index.html">홈</a><a class="nav-link" href="how-to.html">사용법</a><a class="nav-link active" href="guide.html" aria-current="page">Prompt Guide</a><a class="nav-link" href="blog.html">Blog</a><a class="nav-link" href="about.html">About</a>
+  </nav>
+  <a class="nav-cta" href="index.html">📥 무료로 시작하기</a>
+</header>
+<main class="content-wrap">
+
+<div class="page-eyebrow">Prompt Guide · Claude</div>
+<h1 class="page-title">Claude 프롬프트 구조 설계법</h1>
+<p class="page-subtitle">긴 문서, 복잡한 논리, 정확한 맥락 전달에 강한 Claude를 제대로 쓰는 법.</p>
+
+<div class="page-meta">
+  <span>Prompt Guide</span>
+  <span class="dot"></span>
+  <span>약 6분</span>
+</div>
+
+<div class="article">
+
+<p>Claude는 긴 문서를 통째로 이해하고, 복잡한 지시사항을 논리적으로 따라가는 데 강점이 있습니다. 이 강점을 살리려면 프롬프트를 <strong>구조적으로 정리해서 전달</strong>하는 게 중요합니다.</p>
+
+<h2>1. 맥락(Context)을 먼저, 지시는 나중에</h2>
+<p>Claude는 배경 정보를 충분히 주면 그만큼 정확하게 답합니다. "이거 요약해줘"보다 어떤 목적으로, 누구에게 보여줄 요약인지부터 설명하는 게 좋습니다.</p>
+
+<div class="prompt-box">
+  <div class="prompt-box-label">예시</div>
+  <div class="prompt-box-text">아래는 우리 팀의 3분기 마케팅 회의록이야.
+이걸 경영진에게 보고할 3줄 요약으로 만들어줘.
+경영진은 숫자와 다음 액션만 궁금해해.
+
+[회의록 본문]</div>
+</div>
+
+<h2>2. XML 태그로 구획을 나누세요</h2>
+<p>Claude는 <code>&lt;document&gt;</code>, <code>&lt;instructions&gt;</code> 같은 태그로 프롬프트 안의 영역을 나눠주면 각 부분을 더 정확히 구분해서 처리합니다. 특히 여러 문서를 동시에 주거나, 문서와 지시사항을 헷갈리지 않게 하고 싶을 때 유용합니다.</p>
+
+<div class="prompt-box">
+  <div class="prompt-box-label">예시</div>
+  <div class="prompt-box-text">&lt;document&gt;
+(여기에 원본 문서)
+&lt;/document&gt;
+
+&lt;instructions&gt;
+위 문서에서 숫자로 된 성과 지표만 뽑아서
+표로 정리해줘.
+&lt;/instructions&gt;</div>
+</div>
+
+<h2>3. 단계별로 생각하도록 유도하세요</h2>
+<p>복잡한 분석이나 판단이 필요한 작업이라면 "단계별로 생각한 다음 결론을 내려줘"라는 문장을 추가해보세요. Claude는 이렇게 사고 과정을 거치도록 유도했을 때 더 정확한 결론에 도달하는 경향이 있습니다.</p>
+
+<h2>4. 원하는 답변의 길이와 톤을 명시하세요</h2>
+<p>Claude는 별다른 지시가 없으면 꽤 상세하게 답하는 편입니다. 짧고 간결한 답을 원한다면 "3문장 이내로", "불릿포인트로 5개만" 처럼 분량을 구체적으로 제한해주세요.</p>
+
+<h3>실전 팁: 반대 관점도 요청하기</h3>
+<p>중요한 의사결정에 관한 질문이라면 "네 생각과 반대되는 관점도 하나 제시해줘"라고 요청해보세요. Claude는 균형 잡힌 시각을 제공하는 데 능숙하며, 이렇게 물으면 놓치기 쉬운 리스크를 짚어주는 경우가 많습니다.</p>
+
+<div class="prompt-box">
+  <div class="prompt-box-label">예시</div>
+  <div class="prompt-box-text">이 사업 계획의 장점을 분석해줘.
+그리고 내가 놓치고 있을 만한 반대 관점이나
+리스크도 하나 짚어줘.</div>
+</div>
+
+<h2>5. 결과물의 형식을 예시로 보여주기</h2>
+<p>보고서, 이메일, 코드 주석처럼 정형화된 결과물이 필요하다면 원하는 형식의 짧은 예시를 하나 붙여주세요. 특히 사내 문서 양식처럼 특수한 형식을 맞춰야 할 때 효과적입니다.</p>
+
+<div class="callout">
+  💡 <strong>정리</strong>: 맥락을 충분히 → 필요하면 XML 태그로 구획 정리 → 단계적 사고 유도 → 분량·톤 명시. Claude는 "무엇을, 왜" 설명해줄수록 정확해집니다.
+</div>
+
+</div>
+
+<div class="cta-box">
+  <div class="cta-box-title">잘 만든 Claude 프롬프트, 다음에도 쓰고 싶다면</div>
+  <div class="cta-box-sub">BLACKBOXY 서랍에 저장해두고 #Claude 태그만 붙여보세요</div>
+  <a class="cta-box-btn" href="index.html">📥 BLACKBOXY 열기</a>
+</div>
+
+<div class="related-box">
+  <div class="related-title">함께 보면 좋은 글</div>
+  <div class="related-links">
+    <a class="related-link" href="guide-chatgpt.html"><span class="arrow">→</span> ChatGPT 프롬프트 잘 쓰는 법</a>
+    <a class="related-link" href="blog-reduce-hallucination.html"><span class="arrow">→</span> AI 할루시네이션을 줄이는 프롬프트 기법</a>
+    <a class="related-link" href="blog-dev-coding-prompts.html"><span class="arrow">→</span> 개발자를 위한 AI 코딩 프롬프트 모음</a>
+  </div>
+</div>
+
+</main>
+
+<!-- ══ ADSENSE SLOT — 승인 후 style="display:none" 제거하고 광고 코드 삽입 ══ -->
+<div class="adsense-slot-wrap" style="display:none;">
+  <div class="adsense-slot">
+    <span class="adsense-tag">AD</span>
+    <span>광고 영역 (Google AdSense)</span>
+  </div>
+</div>
+
+<footer class="site-footer-wrap">
+  <div class="footer-columns">
+    <div class="footer-brand-col">
+      <img src="boxy-icon.png" alt="" width="36" height="36" loading="lazy">
+      <div>
+        <div class="footer-brand">BLACKBOXY</div>
+        <div class="footer-tag">기억을 수집하는 로봇, 박시가 만든<br>프롬프트 서랍장 🗄️</div>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Resources</div>
+      <div class="footer-col-links">
+        <a href="how-to.html">사용법</a>
+        <a href="guide.html">Prompt Guide</a>
+        <a href="blog.html">Blog</a>
+        <a href="about.html">About</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Legal</div>
+      <div class="footer-col-links">
+        <a href="privacy.html">개인정보처리방침</a>
+        <a href="terms.html">이용약관</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Product</div>
+      <div class="footer-col-links">
+        <a href="index.html">웹앱 열기</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copyright">© 2026 BLACKBOXY. All rights reserved.</div>
+    <div class="footer-contact-group">
+      <span class="footer-contact-label">📢 광고 및 협업 문의</span>
+      <a class="footer-contact" href="mailto:heosoyoone@gmail.com">✉️ heosoyoone@gmail.com</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

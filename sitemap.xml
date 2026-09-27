@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://blackboxy.app/</loc><lastmod>2026-09-27</lastmod><priority>1.0</priority></url>
+  <url><loc>https://blackboxy.app/about.html</loc><lastmod>2026-09-27</lastmod><priority>0.8</priority></url>
+  <url><loc>https://blackboxy.app/blog.html</loc><lastmod>2026-09-27</lastmod><priority>0.8</priority></url>
+  <url><loc>https://blackboxy.app/guide.html</loc><lastmod>2026-09-27</lastmod><priority>0.8</priority></url>
+  <url><loc>https://blackboxy.app/how-to.html</loc><lastmod>2026-09-27</lastmod><priority>0.8</priority></url>
+  <url><loc>https://blackboxy.app/blog-dev-coding-prompts.html</loc><lastmod>2026-09-27</lastmod><priority>0.7</priority></url>
+  <url><loc>https://blackboxy.app/blog-good-vs-bad-prompts.html</loc><lastmod>2026-09-27</lastmod><priority>0.7</priority></url>
+  <url><loc>https://blackboxy.app/blog-image-prompt-basics.html</loc><lastmod>2026-09-27</lastmod><priority>0.7</priority></url>
+  <url><loc>https://blackboxy.app/blog-marketing-copy-prompts.html</loc><lastmod>2026-09-27</lastmod><priority>0.7</priority></url>
+  <url><loc>https://blackboxy.app/blog-productivity-prompts.html</loc><lastmod>2026-09-27</lastmod><priority>0.7</priority></url>
+  <url><loc>https://blackboxy.app/blog-prompt-engineering-basics.html</loc><lastmod>2026-09-27</lastmod><priority>0.7</priority></url>
+  <url><loc>https://blackboxy.app/blog-prompt-variables.html</loc><lastmod>2026-09-27</lastmod><priority>0.7</priority></url>
+  <url><loc>https://blackboxy.app/blog-reduce-hallucination.html</loc><lastmod>2026-09-27</lastmod><priority>0.7</priority></url>
+  <url><loc>https://blackboxy.app/blog-team-prompt-library.html</loc><lastmod>2026-09-27</lastmod><priority>0.7</priority></url>
+  <url><loc>https://blackboxy.app/blog-why-save-prompts.html</loc><lastmod>2026-09-27</lastmod><priority>0.7</priority></url>
+  <url><loc>https://blackboxy.app/guide-chatgpt.html</loc><lastmod>2026-09-27</lastmod><priority>0.7</priority></url>
+  <url><loc>https://blackboxy.app/guide-claude.html</loc><lastmod>2026-09-27</lastmod><priority>0.7</priority></url>
+  <url><loc>https://blackboxy.app/guide-cursor.html</loc><lastmod>2026-09-27</lastmod><priority>0.7</priority></url>
+  <url><loc>https://blackboxy.app/guide-gemini.html</loc><lastmod>2026-09-27</lastmod><priority>0.7</priority></url>
+  <url><loc>https://blackboxy.app/guide-midjourney.html</loc><lastmod>2026-09-27</lastmod><priority>0.7</priority></url>
+  <url><loc>https://blackboxy.app/contact.html</loc><lastmod>2026-09-27</lastmod><priority>0.3</priority></url>
+  <url><loc>https://blackboxy.app/privacy.html</loc><lastmod>2026-09-27</lastmod><priority>0.3</priority></url>
+  <url><loc>https://blackboxy.app/terms.html</loc><lastmod>2026-09-27</lastmod><priority>0.3</priority></url>
+</urlset>

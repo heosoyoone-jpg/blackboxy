@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Cursor 프롬프트 실전 예시 — BLACKBOXY</title>
+<meta name="description" content="코드 범위 지정, 리팩토링 기준, 버그 재현 조건까지 Cursor에서 정확한 코드 수정을 받는 프롬프트 작성법.">
+<link rel="canonical" href="https://blackboxy.app/guide-cursor.html">
+<meta name="theme-color" content="#101114">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta property="og:site_name" content="BLACKBOXY">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cursor 프롬프트 실전 예시">
+<meta property="og:description" content="코드 범위 지정, 리팩토링 기준, 버그 재현 조건까지 Cursor에서 정확한 코드 수정을 받는 프롬프트 작성법.">
+<meta property="og:url" content="https://blackboxy.app/guide-cursor.html">
+<meta property="og:image" content="https://blackboxy.app/boxy-icon.png">
+<meta property="og:image:width" content="256">
+<meta property="og:image:height" content="256">
+<meta property="og:image:alt" content="BLACKBOXY 마스코트 박시">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Cursor 프롬프트 실전 예시">
+<meta name="twitter:description" content="코드 범위 지정, 리팩토링 기준, 버그 재현 조건까지 Cursor에서 정확한 코드 수정을 받는 프롬프트 작성법.">
+<meta name="twitter:image" content="https://blackboxy.app/boxy-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Cursor 프롬프트 실전 예시",
+  "description": "코드 범위 지정, 리팩토링 기준, 버그 재현 조건까지 Cursor에서 정확한 코드 수정을 받는 프롬프트 작성법.",
+  "url": "https://blackboxy.app/guide-cursor.html",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://blackboxy.app/guide-cursor.html"
+  },
+  "inLanguage": "ko-KR",
+  "image": "https://blackboxy.app/boxy-icon.png",
+  "publisher": {
+    "@type": "Organization",
+    "name": "BLACKBOXY",
+    "url": "https://blackboxy.app/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://blackboxy.app/boxy-icon.png",
+      "width": 256,
+      "height": 256
+    }
+  }
+}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="style.css">
+<!-- [TODO] GA4 측정 태그 · Search Console 인증 메타 · AdSense 스크립트는 ID 확보 후 여기에 삽입 -->
+</head>
+<body>
+<header class="site-nav">
+  <a class="nav-brand" href="index.html" aria-label="BLACKBOXY 홈">
+    <img src="boxy-icon.png" alt="BLACKBOXY 로고" width="26" height="26">
+    <span class="nav-brand-pixel">BLACKBOXY</span>
+  </a>
+  <nav class="nav-links" aria-label="주요 메뉴">
+    <a class="nav-link" href="index.html">홈</a><a class="nav-link" href="how-to.html">사용법</a><a class="nav-link active" href="guide.html" aria-current="page">Prompt Guide</a><a class="nav-link" href="blog.html">Blog</a><a class="nav-link" href="about.html">About</a>
+  </nav>
+  <a class="nav-cta" href="index.html">📥 무료로 시작하기</a>
+</header>
+<main class="content-wrap">
+
+<div class="page-eyebrow">Prompt Guide · Cursor</div>
+<h1 class="page-title">Cursor 프롬프트 실전 예시</h1>
+<p class="page-subtitle">코드베이스 맥락을 살려서 지시하면, 리뷰어처럼 정확하게 고쳐줍니다.</p>
+
+<div class="page-meta">
+  <span>Prompt Guide</span>
+  <span class="dot"></span>
+  <span>약 6분</span>
+</div>
+
+<div class="article">
+
+<p>Cursor 같은 AI 코딩 도구는 코드베이스 전체 맥락을 참고할 수 있다는 점이 가장 큰 강점입니다. 이 강점을 살리려면 프롬프트에서 <strong>"무엇을 고칠지"뿐 아니라 "왜, 어떤 기준으로"</strong>까지 명시하는 게 중요합니다.</p>
+
+<h2>1. 범위를 명확히 지정하세요</h2>
+<p>"이 파일 고쳐줘"보다 정확히 어떤 함수, 어떤 컴포넌트를 대상으로 하는지 짚어주세요. 범위가 명확할수록 AI가 관련 없는 코드까지 건드리는 실수를 줄일 수 있습니다.</p>
+
+<div class="prompt-box">
+  <div class="prompt-box-label">예시</div>
+  <div class="prompt-box-text">UserProfile 컴포넌트의 handleSubmit 함수만 고쳐줘.
+다른 함수는 건드리지 마.</div>
+</div>
+
+<h2>2. 리팩토링은 기준을 먼저 제시하세요</h2>
+<p>"리팩토링해줘"는 애매합니다. 가독성 개선인지, 성능 개선인지, 특정 패턴 적용인지에 따라 결과가 완전히 달라집니다.</p>
+
+<div class="prompt-box">
+  <div class="prompt-box-label">예시</div>
+  <div class="prompt-box-text">시니어 개발자 관점으로 이 함수를 리뷰해줘.
+우선순위는 가독성 → 성능 → 보안 순서로.
+각 이슈마다 수정된 코드 예시도 같이 보여줘.</div>
+</div>
+
+<h2>3. 버그 수정은 재현 조건을 함께 주세요</h2>
+<p>"이 버그 고쳐줘"만으로는 AI도 원인을 추측할 수밖에 없습니다. 어떤 입력값에서, 어떤 상황에서 문제가 재현되는지 알려주면 훨씬 정확하게 원인을 짚어냅니다.</p>
+
+<div class="prompt-box">
+  <div class="prompt-box-label">예시</div>
+  <div class="prompt-box-text">아래 함수에서 배열이 비어있을 때
+undefined 에러가 나. 원인을 찾고,
+빈 배열/null/undefined 케이스를 모두 방어하도록 고쳐줘.</div>
+</div>
+
+<h2>4. 기존 코드 스타일을 유지하도록 지시하세요</h2>
+<p>프로젝트마다 네이밍 컨벤션, 들여쓰기, 주석 스타일이 다릅니다. "기존 코드 스타일을 유지해서"라는 한 문장을 추가하면 AI가 임의로 다른 스타일을 섞어 쓰는 걸 방지할 수 있습니다.</p>
+
+<h2>5. 테스트 코드도 함께 요청하세요</h2>
+<p>함수를 수정할 때 "수정 후 테스트 케이스도 같이 작성해줘"라고 요청하면, 수정이 기존 로직을 깨뜨리지 않았는지 바로 검증할 수 있는 코드까지 한 번에 받을 수 있습니다.</p>
+
+<h3>실전 팁: 설명 없이 코드만 원할 때</h3>
+<p>매번 긴 설명이 붙어서 번거롭다면 "코드만 보여줘, 설명은 생략해"를 프롬프트 끝에 붙이세요. 반대로 왜 그렇게 고쳤는지 이해하고 싶다면 "한 줄씩 이유를 주석으로 달아줘"라고 요청하면 됩니다.</p>
+
+<div class="callout">
+  💡 <strong>정리</strong>: 범위 지정 → 리팩토링 기준 명시 → 재현 조건 제공 → 기존 스타일 유지 지시 → 필요시 테스트 코드까지 요청. "무엇을"보다 "어떤 기준으로"가 코딩 프롬프트의 핵심입니다.
+</div>
+
+</div>
+
+<div class="cta-box">
+  <div class="cta-box-title">자주 쓰는 코딩 프롬프트, 매번 새로 쓰지 마세요</div>
+  <div class="cta-box-sub">BLACKBOXY 코딩 서랍에 저장하고 언제든 꺼내 쓰세요</div>
+  <a class="cta-box-btn" href="index.html">📥 BLACKBOXY 열기</a>
+</div>
+
+<div class="related-box">
+  <div class="related-title">함께 보면 좋은 글</div>
+  <div class="related-links">
+    <a class="related-link" href="blog-dev-coding-prompts.html"><span class="arrow">→</span> 개발자를 위한 AI 코딩 프롬프트 모음</a>
+    <a class="related-link" href="guide-claude.html"><span class="arrow">→</span> Claude 프롬프트 구조 설계법</a>
+    <a class="related-link" href="blog-team-prompt-library.html"><span class="arrow">→</span> 팀 프롬프트 라이브러리 관리하는 법</a>
+  </div>
+</div>
+
+</main>
+
+<!-- ══ ADSENSE SLOT — 승인 후 style="display:none" 제거하고 광고 코드 삽입 ══ -->
+<div class="adsense-slot-wrap" style="display:none;">
+  <div class="adsense-slot">
+    <span class="adsense-tag">AD</span>
+    <span>광고 영역 (Google AdSense)</span>
+  </div>
+</div>
+
+<footer class="site-footer-wrap">
+  <div class="footer-columns">
+    <div class="footer-brand-col">
+      <img src="boxy-icon.png" alt="" width="36" height="36" loading="lazy">
+      <div>
+        <div class="footer-brand">BLACKBOXY</div>
+        <div class="footer-tag">기억을 수집하는 로봇, 박시가 만든<br>프롬프트 서랍장 🗄️</div>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Resources</div>
+      <div class="footer-col-links">
+        <a href="how-to.html">사용법</a>
+        <a href="guide.html">Prompt Guide</a>
+        <a href="blog.html">Blog</a>
+        <a href="about.html">About</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Legal</div>
+      <div class="footer-col-links">
+        <a href="privacy.html">개인정보처리방침</a>
+        <a href="terms.html">이용약관</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Product</div>
+      <div class="footer-col-links">
+        <a href="index.html">웹앱 열기</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copyright">© 2026 BLACKBOXY. All rights reserved.</div>
+    <div class="footer-contact-group">
+      <span class="footer-contact-label">📢 광고 및 협업 문의</span>
+      <a class="footer-contact" href="mailto:heosoyoone@gmail.com">✉️ heosoyoone@gmail.com</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

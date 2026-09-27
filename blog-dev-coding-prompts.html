@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>개발자를 위한 AI 코딩 프롬프트 모음 — BLACKBOXY</title>
+<meta name="description" content="코드 리뷰, 버그 분석, 테스트 생성 등 개발 실무에서 바로 쓸 수 있는 AI 코딩 프롬프트 모음입니다.">
+<link rel="canonical" href="https://blackboxy.app/blog-dev-coding-prompts.html">
+<meta name="theme-color" content="#101114">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta property="og:site_name" content="BLACKBOXY">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:type" content="article">
+<meta property="og:title" content="개발자를 위한 AI 코딩 프롬프트 모음">
+<meta property="og:description" content="코드 리뷰, 버그 분석, 테스트 생성 등 개발 실무에서 바로 쓸 수 있는 AI 코딩 프롬프트 모음입니다.">
+<meta property="og:url" content="https://blackboxy.app/blog-dev-coding-prompts.html">
+<meta property="og:image" content="https://blackboxy.app/boxy-icon.png">
+<meta property="og:image:width" content="256">
+<meta property="og:image:height" content="256">
+<meta property="og:image:alt" content="BLACKBOXY 마스코트 박시">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="개발자를 위한 AI 코딩 프롬프트 모음">
+<meta name="twitter:description" content="코드 리뷰, 버그 분석, 테스트 생성 등 개발 실무에서 바로 쓸 수 있는 AI 코딩 프롬프트 모음입니다.">
+<meta name="twitter:image" content="https://blackboxy.app/boxy-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "개발자를 위한 AI 코딩 프롬프트 모음",
+  "description": "코드 리뷰, 버그 분석, 테스트 생성 등 개발 실무에서 바로 쓸 수 있는 AI 코딩 프롬프트 모음입니다.",
+  "url": "https://blackboxy.app/blog-dev-coding-prompts.html",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://blackboxy.app/blog-dev-coding-prompts.html"
+  },
+  "inLanguage": "ko-KR",
+  "image": "https://blackboxy.app/boxy-icon.png",
+  "publisher": {
+    "@type": "Organization",
+    "name": "BLACKBOXY",
+    "url": "https://blackboxy.app/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://blackboxy.app/boxy-icon.png",
+      "width": 256,
+      "height": 256
+    }
+  },
+  "author": {
+    "@type": "Organization",
+    "name": "BLACKBOXY 팀",
+    "url": "https://blackboxy.app/about.html"
+  }
+}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="style.css">
+<!-- [TODO] GA4 측정 태그 · Search Console 인증 메타 · AdSense 스크립트는 ID 확보 후 여기에 삽입 -->
+</head>
+<body>
+<header class="site-nav">
+  <a class="nav-brand" href="index.html" aria-label="BLACKBOXY 홈">
+    <img src="boxy-icon.png" alt="BLACKBOXY 로고" width="26" height="26">
+    <span class="nav-brand-pixel">BLACKBOXY</span>
+  </a>
+  <nav class="nav-links" aria-label="주요 메뉴">
+    <a class="nav-link" href="index.html">홈</a><a class="nav-link" href="how-to.html">사용법</a><a class="nav-link" href="guide.html">Prompt Guide</a><a class="nav-link active" href="blog.html" aria-current="page">Blog</a><a class="nav-link" href="about.html">About</a>
+  </nav>
+  <a class="nav-cta" href="index.html">📥 무료로 시작하기</a>
+</header>
+<main class="content-wrap">
+
+<div class="page-eyebrow">Blog</div>
+<h1 class="page-title">개발자를 위한 AI 코딩 프롬프트 모음</h1>
+<p class="page-subtitle">코드 리뷰부터 버그 수정까지, 실전에서 바로 쓰는 프롬프트 모음.</p>
+
+<div class="page-meta">
+  <span>BLACKBOXY 팀</span>
+  <span class="dot"></span>
+  <span>약 6분</span>
+</div>
+
+<div class="article">
+
+<p>AI 코딩 도구를 쓸 때 가장 자주 반복하는 작업들을 프롬프트로 정리했습니다. 그대로 복사해서 상황에 맞게 조금씩 수정해서 써보세요.</p>
+
+<h2>코드 리뷰</h2>
+<div class="prompt-box">
+<div class="prompt-box-text">시니어 개발자 관점으로 이 코드를 리뷰해줘.
+가독성 → 성능 → 보안 순서로 이슈를 정리하고,
+각 이슈마다 수정된 코드 예시를 보여줘.</div>
+</div>
+
+<h2>버그 원인 분석</h2>
+<div class="prompt-box">
+<div class="prompt-box-text">아래 코드에서 [증상]이 발생해.
+재현 조건은 [조건]이야.
+가능한 원인을 우선순위대로 나열하고,
+각각 어떻게 검증할 수 있는지 알려줘.</div>
+</div>
+
+<h2>레거시 코드 이해하기</h2>
+<div class="prompt-box">
+<div class="prompt-box-text">이 코드가 무슨 일을 하는지 한 줄씩
+주석으로 설명해줘. 특히 왜 이런 방식으로
+짰는지 추측할 수 있으면 같이 적어줘.</div>
+</div>
+
+<h2>테스트 코드 생성</h2>
+<div class="prompt-box">
+<div class="prompt-box-text">이 함수에 대한 단위 테스트를 작성해줘.
+정상 케이스, 경계값, 예외 케이스를 모두 포함해서.</div>
+</div>
+
+<h2>성능 최적화</h2>
+<div class="prompt-box">
+<div class="prompt-box-text">이 함수의 시간 복잡도를 분석하고,
+개선 가능한 부분이 있다면 이유와 함께
+최적화된 코드를 제안해줘.</div>
+</div>
+
+<h2>API 설계 리뷰</h2>
+<div class="prompt-box">
+<div class="prompt-box-text">이 REST API 설계를 리뷰해줘.
+RESTful 원칙에 맞는지, 네이밍이 일관적인지,
+에러 응답 형식이 적절한지 확인해줘.</div>
+</div>
+
+<h2>커밋 메시지 작성</h2>
+<div class="prompt-box">
+<div class="prompt-box-text">아래 diff를 보고 컨벤셔널 커밋 형식으로
+커밋 메시지를 작성해줘. (feat/fix/refactor 등)</div>
+</div>
+
+<h2>기술 부채 정리</h2>
+<div class="prompt-box">
+<div class="prompt-box-text">이 파일에서 기술 부채로 볼 수 있는 부분을
+찾아서 심각도와 함께 리스트로 정리해줘.</div>
+</div>
+
+<div class="callout">
+  💡 <strong>팁</strong>: 코딩 프롬프트는 "무엇을 고칠지"보다 <strong>"어떤 기준으로 판단할지"</strong>를 명시할 때 결과물의 품질이 크게 달라집니다. 자세한 작성법은 <a class="inline-link" href="guide-cursor.html">Cursor 프롬프트 가이드</a>에서 확인하세요.
+</div>
+
+</div>
+
+<div class="cta-box">
+  <div class="cta-box-title">이 프롬프트들, 코딩 서랍 하나에 정리해두세요</div>
+  <div class="cta-box-sub">태그별로 나눠두면 상황에 맞게 빠르게 찾을 수 있어요</div>
+  <a class="cta-box-btn" href="index.html">📥 BLACKBOXY 열기</a>
+</div>
+
+<div class="related-box">
+  <div class="related-title">함께 보면 좋은 글</div>
+  <div class="related-links">
+    <a class="related-link" href="guide-cursor.html"><span class="arrow">→</span> Cursor 프롬프트 실전 예시</a>
+    <a class="related-link" href="guide-claude.html"><span class="arrow">→</span> Claude 프롬프트 구조 설계법</a>
+    <a class="related-link" href="blog-team-prompt-library.html"><span class="arrow">→</span> 팀 프롬프트 라이브러리 관리하는 법</a>
+  </div>
+</div>
+
+</main>
+
+<!-- ══ ADSENSE SLOT — 승인 후 style="display:none" 제거하고 광고 코드 삽입 ══ -->
+<div class="adsense-slot-wrap" style="display:none;">
+  <div class="adsense-slot">
+    <span class="adsense-tag">AD</span>
+    <span>광고 영역 (Google AdSense)</span>
+  </div>
+</div>
+
+<footer class="site-footer-wrap">
+  <div class="footer-columns">
+    <div class="footer-brand-col">
+      <img src="boxy-icon.png" alt="" width="36" height="36" loading="lazy">
+      <div>
+        <div class="footer-brand">BLACKBOXY</div>
+        <div class="footer-tag">기억을 수집하는 로봇, 박시가 만든<br>프롬프트 서랍장 🗄️</div>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Resources</div>
+      <div class="footer-col-links">
+        <a href="how-to.html">사용법</a>
+        <a href="guide.html">Prompt Guide</a>
+        <a href="blog.html">Blog</a>
+        <a href="about.html">About</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Legal</div>
+      <div class="footer-col-links">
+        <a href="privacy.html">개인정보처리방침</a>
+        <a href="terms.html">이용약관</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Product</div>
+      <div class="footer-col-links">
+        <a href="index.html">웹앱 열기</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copyright">© 2026 BLACKBOXY. All rights reserved.</div>
+    <div class="footer-contact-group">
+      <span class="footer-contact-label">📢 광고 및 협업 문의</span>
+      <a class="footer-contact" href="mailto:heosoyoone@gmail.com">✉️ heosoyoone@gmail.com</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

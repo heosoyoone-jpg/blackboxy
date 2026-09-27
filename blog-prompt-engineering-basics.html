@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>프롬프트 엔지니어링이란 무엇인가 — BLACKBOXY</title>
+<meta name="description" content="프롬프트 엔지니어링의 개념과 맥락, 구조, 반복이라는 3가지 핵심 축을 알아보세요.">
+<link rel="canonical" href="https://blackboxy.app/blog-prompt-engineering-basics.html">
+<meta name="theme-color" content="#101114">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta property="og:site_name" content="BLACKBOXY">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:type" content="article">
+<meta property="og:title" content="프롬프트 엔지니어링이란 무엇인가">
+<meta property="og:description" content="프롬프트 엔지니어링의 개념과 맥락, 구조, 반복이라는 3가지 핵심 축을 알아보세요.">
+<meta property="og:url" content="https://blackboxy.app/blog-prompt-engineering-basics.html">
+<meta property="og:image" content="https://blackboxy.app/boxy-icon.png">
+<meta property="og:image:width" content="256">
+<meta property="og:image:height" content="256">
+<meta property="og:image:alt" content="BLACKBOXY 마스코트 박시">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="프롬프트 엔지니어링이란 무엇인가">
+<meta name="twitter:description" content="프롬프트 엔지니어링의 개념과 맥락, 구조, 반복이라는 3가지 핵심 축을 알아보세요.">
+<meta name="twitter:image" content="https://blackboxy.app/boxy-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "프롬프트 엔지니어링이란 무엇인가",
+  "description": "프롬프트 엔지니어링의 개념과 맥락, 구조, 반복이라는 3가지 핵심 축을 알아보세요.",
+  "url": "https://blackboxy.app/blog-prompt-engineering-basics.html",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://blackboxy.app/blog-prompt-engineering-basics.html"
+  },
+  "inLanguage": "ko-KR",
+  "image": "https://blackboxy.app/boxy-icon.png",
+  "publisher": {
+    "@type": "Organization",
+    "name": "BLACKBOXY",
+    "url": "https://blackboxy.app/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://blackboxy.app/boxy-icon.png",
+      "width": 256,
+      "height": 256
+    }
+  },
+  "author": {
+    "@type": "Organization",
+    "name": "BLACKBOXY 팀",
+    "url": "https://blackboxy.app/about.html"
+  }
+}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="style.css">
+<!-- [TODO] GA4 측정 태그 · Search Console 인증 메타 · AdSense 스크립트는 ID 확보 후 여기에 삽입 -->
+</head>
+<body>
+<header class="site-nav">
+  <a class="nav-brand" href="index.html" aria-label="BLACKBOXY 홈">
+    <img src="boxy-icon.png" alt="BLACKBOXY 로고" width="26" height="26">
+    <span class="nav-brand-pixel">BLACKBOXY</span>
+  </a>
+  <nav class="nav-links" aria-label="주요 메뉴">
+    <a class="nav-link" href="index.html">홈</a><a class="nav-link" href="how-to.html">사용법</a><a class="nav-link" href="guide.html">Prompt Guide</a><a class="nav-link active" href="blog.html" aria-current="page">Blog</a><a class="nav-link" href="about.html">About</a>
+  </nav>
+  <a class="nav-cta" href="index.html">📥 무료로 시작하기</a>
+</header>
+<main class="content-wrap">
+
+<div class="page-eyebrow">Blog</div>
+<h1 class="page-title">프롬프트 엔지니어링이란 무엇인가</h1>
+<p class="page-subtitle">거창해 보이지만, 결국은 "AI에게 원하는 걸 정확히 전달하는 기술"입니다.</p>
+
+<div class="page-meta">
+  <span>BLACKBOXY 팀</span>
+  <span class="dot"></span>
+  <span>약 5분</span>
+</div>
+
+<div class="article">
+
+<p>"프롬프트 엔지니어링"이라는 말을 들으면 뭔가 대단한 기술처럼 느껴집니다. 하지만 본질은 단순합니다. <strong>같은 질문이라도 어떻게 물어보느냐에 따라 답의 질이 완전히 달라진다</strong>는 사실을 이해하고, 그 차이를 의도적으로 만들어내는 것. 그게 전부입니다.</p>
+
+<h2>왜 같은 AI인데 결과가 다를까</h2>
+<p>AI 모델은 입력된 텍스트(프롬프트)를 바탕으로 다음에 올 확률이 가장 높은 텍스트를 예측합니다. 즉, 프롬프트 자체가 결과물의 방향을 결정하는 가장 큰 변수입니다. 모호한 질문에는 모호하게 대응할 수밖에 없고, 구체적인 질문에는 구체적으로 답할 수 있는 여지가 생깁니다.</p>
+
+<h2>프롬프트 엔지니어링의 3가지 축</h2>
+<h3>1. 맥락(Context)</h3>
+<p>AI는 우리가 무엇을 알고 있는지, 왜 이 질문을 하는지 모릅니다. 배경 정보를 얼마나 정확히 전달하느냐가 답변의 정확도를 좌우합니다.</p>
+
+<h3>2. 구조(Structure)</h3>
+<p>조건이 여러 개라면 번호를 매기고, 원하는 형식이 있다면 미리 정의하고, 예시가 있다면 보여주세요. 구조화된 입력은 구조화된 출력을 만듭니다.</p>
+
+<h3>3. 반복(Iteration)</h3>
+<p>완벽한 프롬프트를 한 번에 쓰는 사람은 없습니다. 첫 결과를 보고 무엇이 부족한지 파악해서 조건을 추가하거나 수정하는 과정 자체가 프롬프트 엔지니어링입니다.</p>
+
+<h2>흔한 오해: "정답 프롬프트"는 없다</h2>
+<p>인터넷에 떠도는 "만능 프롬프트"들은 대부분 특정 상황에서만 잘 작동합니다. 프롬프트 엔지니어링의 핵심은 정답 하나를 외우는 게 아니라, 상황에 맞게 맥락과 조건을 조정하는 감각을 기르는 것입니다.</p>
+
+<div class="callout">
+  💡 좋은 프롬프트를 발견했다면, 그 프롬프트가 <strong>왜</strong> 잘 작동했는지 함께 기록해두세요. 다음에 비슷한 상황에서 응용할 수 있는 진짜 자산이 됩니다.
+</div>
+
+<h2>프롬프트도 관리가 필요한 이유</h2>
+<p>좋은 프롬프트를 한 번 만들었다고 끝이 아닙니다. 시간이 지나면 어떤 조건을 넣었는지, 어떤 AI에 최적화했는지 잊어버립니다. 그래서 프롬프트를 저장하고, 태그를 붙이고, 필요할 때 꺼내 쓰는 습관이 결국 프롬프트 엔지니어링 실력만큼이나 중요합니다.</p>
+
+</div>
+
+<div class="cta-box">
+  <div class="cta-box-title">지금 쓴 프롬프트, 다음에도 쓸 수 있게</div>
+  <div class="cta-box-sub">BLACKBOXY에 저장해두면 검색 한 번으로 다시 찾을 수 있어요</div>
+  <a class="cta-box-btn" href="index.html">📥 BLACKBOXY 열기</a>
+</div>
+
+<div class="related-box">
+  <div class="related-title">함께 보면 좋은 글</div>
+  <div class="related-links">
+    <a class="related-link" href="blog-good-vs-bad-prompts.html"><span class="arrow">→</span> 좋은 프롬프트와 나쁜 프롬프트의 차이</a>
+    <a class="related-link" href="guide.html"><span class="arrow">→</span> AI별 프롬프트 작성 가이드</a>
+    <a class="related-link" href="blog-why-save-prompts.html"><span class="arrow">→</span> 프롬프트를 저장하고 재사용해야 하는 이유</a>
+  </div>
+</div>
+
+</main>
+
+<!-- ══ ADSENSE SLOT — 승인 후 style="display:none" 제거하고 광고 코드 삽입 ══ -->
+<div class="adsense-slot-wrap" style="display:none;">
+  <div class="adsense-slot">
+    <span class="adsense-tag">AD</span>
+    <span>광고 영역 (Google AdSense)</span>
+  </div>
+</div>
+
+<footer class="site-footer-wrap">
+  <div class="footer-columns">
+    <div class="footer-brand-col">
+      <img src="boxy-icon.png" alt="" width="36" height="36" loading="lazy">
+      <div>
+        <div class="footer-brand">BLACKBOXY</div>
+        <div class="footer-tag">기억을 수집하는 로봇, 박시가 만든<br>프롬프트 서랍장 🗄️</div>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Resources</div>
+      <div class="footer-col-links">
+        <a href="how-to.html">사용법</a>
+        <a href="guide.html">Prompt Guide</a>
+        <a href="blog.html">Blog</a>
+        <a href="about.html">About</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Legal</div>
+      <div class="footer-col-links">
+        <a href="privacy.html">개인정보처리방침</a>
+        <a href="terms.html">이용약관</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Product</div>
+      <div class="footer-col-links">
+        <a href="index.html">웹앱 열기</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copyright">© 2026 BLACKBOXY. All rights reserved.</div>
+    <div class="footer-contact-group">
+      <span class="footer-contact-label">📢 광고 및 협업 문의</span>
+      <a class="footer-contact" href="mailto:heosoyoone@gmail.com">✉️ heosoyoone@gmail.com</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

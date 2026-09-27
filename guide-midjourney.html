@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Midjourney 프롬프트 공식 — BLACKBOXY</title>
+<meta name="description" content="피사체, 스타일, 조명, 카메라, 파라미터 순서로 쌓는 Midjourney 이미지 프롬프트 작성 공식을 알아보세요.">
+<link rel="canonical" href="https://blackboxy.app/guide-midjourney.html">
+<meta name="theme-color" content="#101114">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta property="og:site_name" content="BLACKBOXY">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Midjourney 프롬프트 공식">
+<meta property="og:description" content="피사체, 스타일, 조명, 카메라, 파라미터 순서로 쌓는 Midjourney 이미지 프롬프트 작성 공식을 알아보세요.">
+<meta property="og:url" content="https://blackboxy.app/guide-midjourney.html">
+<meta property="og:image" content="https://blackboxy.app/boxy-icon.png">
+<meta property="og:image:width" content="256">
+<meta property="og:image:height" content="256">
+<meta property="og:image:alt" content="BLACKBOXY 마스코트 박시">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Midjourney 프롬프트 공식">
+<meta name="twitter:description" content="피사체, 스타일, 조명, 카메라, 파라미터 순서로 쌓는 Midjourney 이미지 프롬프트 작성 공식을 알아보세요.">
+<meta name="twitter:image" content="https://blackboxy.app/boxy-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Midjourney 프롬프트 공식",
+  "description": "피사체, 스타일, 조명, 카메라, 파라미터 순서로 쌓는 Midjourney 이미지 프롬프트 작성 공식을 알아보세요.",
+  "url": "https://blackboxy.app/guide-midjourney.html",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://blackboxy.app/guide-midjourney.html"
+  },
+  "inLanguage": "ko-KR",
+  "image": "https://blackboxy.app/boxy-icon.png",
+  "publisher": {
+    "@type": "Organization",
+    "name": "BLACKBOXY",
+    "url": "https://blackboxy.app/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://blackboxy.app/boxy-icon.png",
+      "width": 256,
+      "height": 256
+    }
+  }
+}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="style.css">
+<!-- [TODO] GA4 측정 태그 · Search Console 인증 메타 · AdSense 스크립트는 ID 확보 후 여기에 삽입 -->
+</head>
+<body>
+<header class="site-nav">
+  <a class="nav-brand" href="index.html" aria-label="BLACKBOXY 홈">
+    <img src="boxy-icon.png" alt="BLACKBOXY 로고" width="26" height="26">
+    <span class="nav-brand-pixel">BLACKBOXY</span>
+  </a>
+  <nav class="nav-links" aria-label="주요 메뉴">
+    <a class="nav-link" href="index.html">홈</a><a class="nav-link" href="how-to.html">사용법</a><a class="nav-link active" href="guide.html" aria-current="page">Prompt Guide</a><a class="nav-link" href="blog.html">Blog</a><a class="nav-link" href="about.html">About</a>
+  </nav>
+  <a class="nav-cta" href="index.html">📥 무료로 시작하기</a>
+</header>
+<main class="content-wrap">
+
+<div class="page-eyebrow">Prompt Guide · Midjourney</div>
+<h1 class="page-title">Midjourney 프롬프트 공식</h1>
+<p class="page-subtitle">피사체 → 스타일 → 조명 → 카메라 → 파라미터, 순서만 지켜도 절반은 성공입니다.</p>
+
+<div class="page-meta">
+  <span>Prompt Guide</span>
+  <span class="dot"></span>
+  <span>약 5분</span>
+</div>
+
+<div class="article">
+
+<p>이미지 생성 프롬프트는 글쓰기 프롬프트와 완전히 다른 규칙을 따릅니다. 문장이 아니라 <strong>쌓아 올리는 키워드의 순서와 조합</strong>이 핵심입니다.</p>
+
+<h2>기본 공식</h2>
+<p>Midjourney 프롬프트는 대체로 아래 순서로 쌓으면 안정적인 결과가 나옵니다.</p>
+<ol>
+  <li><strong>피사체(Subject)</strong> — 무엇을 그릴 것인가</li>
+  <li><strong>스타일(Style)</strong> — 사진인지, 일러스트인지, 어느 화풍인지</li>
+  <li><strong>조명(Lighting)</strong> — 빛의 방향과 분위기</li>
+  <li><strong>카메라/구도</strong> — 렌즈, 각도, 피사계 심도</li>
+  <li><strong>파라미터</strong> — 비율, 버전 등 기술적 옵션</li>
+</ol>
+
+<div class="prompt-box">
+  <div class="prompt-box-label">예시</div>
+  <div class="prompt-box-text">cinematic portrait of a woman reading a book in a café,
+soft golden hour lighting through window,
+shot on 85mm lens, shallow depth of field, film grain
+--ar 4:5 --v 6</div>
+</div>
+
+<h2>1. 피사체는 구체적으로</h2>
+<p>"a woman"보다 "a woman in her 30s wearing a wool sweater"처럼 나이대, 옷차림, 동작을 구체화하면 결과물의 일관성이 높아집니다.</p>
+
+<h2>2. 스타일 키워드는 한두 개만</h2>
+<p>스타일 관련 키워드를 너무 많이 넣으면 서로 충돌해서 애매한 결과가 나옵니다. "watercolor"와 "hyperrealistic"을 동시에 넣기보다, 원하는 방향 하나를 명확히 정하는 게 낫습니다.</p>
+
+<h2>3. 조명은 분위기를 결정합니다</h2>
+<p>같은 피사체, 같은 구도라도 조명 키워드에 따라 완전히 다른 느낌이 납니다.</p>
+<ul>
+  <li><code>golden hour lighting</code> — 따뜻하고 감성적인 느낌</li>
+  <li><code>soft studio lighting</code> — 깔끔하고 상업적인 느낌</li>
+  <li><code>dramatic side lighting</code> — 강렬하고 영화 같은 느낌</li>
+  <li><code>overcast diffused light</code> — 차분하고 다큐멘터리 같은 느낌</li>
+</ul>
+
+<h2>4. 카메라 용어로 사실감을 더하세요</h2>
+<p><code>shot on 35mm film</code>, <code>85mm lens</code>, <code>shallow depth of field</code> 같은 실제 카메라·렌즈 용어를 넣으면 사진 같은 결과물을 얻기 쉬워집니다. 반대로 일러스트를 원한다면 이런 키워드는 빼는 게 좋습니다.</p>
+
+<h2>5. 파라미터로 마무리</h2>
+<p>프롬프트 맨 끝의 <code>--ar</code>(비율), <code>--v</code>(버전) 같은 파라미터는 이미지의 형태와 엔진 버전을 결정하는 기술적 옵션입니다. 인스타그램용 세로 이미지라면 <code>--ar 4:5</code>, 와이드 배경화면이라면 <code>--ar 16:9</code> 식으로 용도에 맞게 조정하세요.</p>
+
+<div class="callout">
+  💡 <strong>정리</strong>: 프롬프트를 문장이 아니라 "레이어를 쌓는다"고 생각하세요. 피사체를 구체화하고, 스타일은 한두 개로 좁히고, 조명으로 분위기를 결정한 다음, 카메라 용어와 파라미터로 마무리합니다.
+</div>
+
+</div>
+
+<div class="cta-box">
+  <div class="cta-box-title">잘 나온 이미지 프롬프트, 다음에 또 쓰려면</div>
+  <div class="cta-box-sub">BLACKBOXY 이미지 서랍에 저장해두면 스타일 조합을 다시 찾기 쉬워요</div>
+  <a class="cta-box-btn" href="index.html">📥 BLACKBOXY 열기</a>
+</div>
+
+<div class="related-box">
+  <div class="related-title">함께 보면 좋은 글</div>
+  <div class="related-links">
+    <a class="related-link" href="blog-image-prompt-basics.html"><span class="arrow">→</span> 이미지 생성 AI 프롬프트 기초</a>
+    <a class="related-link" href="guide-gemini.html"><span class="arrow">→</span> Gemini 활용법</a>
+    <a class="related-link" href="blog-prompt-variables.html"><span class="arrow">→</span> 프롬프트에 변수를 활용하는 법</a>
+  </div>
+</div>
+
+</main>
+
+<!-- ══ ADSENSE SLOT — 승인 후 style="display:none" 제거하고 광고 코드 삽입 ══ -->
+<div class="adsense-slot-wrap" style="display:none;">
+  <div class="adsense-slot">
+    <span class="adsense-tag">AD</span>
+    <span>광고 영역 (Google AdSense)</span>
+  </div>
+</div>
+
+<footer class="site-footer-wrap">
+  <div class="footer-columns">
+    <div class="footer-brand-col">
+      <img src="boxy-icon.png" alt="" width="36" height="36" loading="lazy">
+      <div>
+        <div class="footer-brand">BLACKBOXY</div>
+        <div class="footer-tag">기억을 수집하는 로봇, 박시가 만든<br>프롬프트 서랍장 🗄️</div>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Resources</div>
+      <div class="footer-col-links">
+        <a href="how-to.html">사용법</a>
+        <a href="guide.html">Prompt Guide</a>
+        <a href="blog.html">Blog</a>
+        <a href="about.html">About</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Legal</div>
+      <div class="footer-col-links">
+        <a href="privacy.html">개인정보처리방침</a>
+        <a href="terms.html">이용약관</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Product</div>
+      <div class="footer-col-links">
+        <a href="index.html">웹앱 열기</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copyright">© 2026 BLACKBOXY. All rights reserved.</div>
+    <div class="footer-contact-group">
+      <span class="footer-contact-label">📢 광고 및 협업 문의</span>
+      <a class="footer-contact" href="mailto:heosoyoone@gmail.com">✉️ heosoyoone@gmail.com</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

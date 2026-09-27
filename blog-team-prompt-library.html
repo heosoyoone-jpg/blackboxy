@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>팀 프롬프트 라이브러리 관리하는 법 — BLACKBOXY</title>
+<meta name="description" content="팀 단위로 프롬프트를 공유하고 관리할 때 필요한 카테고리 구성, 버전 관리, 정리 원칙을 알아보세요.">
+<link rel="canonical" href="https://blackboxy.app/blog-team-prompt-library.html">
+<meta name="theme-color" content="#101114">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta property="og:site_name" content="BLACKBOXY">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:type" content="article">
+<meta property="og:title" content="팀 프롬프트 라이브러리 관리하는 법">
+<meta property="og:description" content="팀 단위로 프롬프트를 공유하고 관리할 때 필요한 카테고리 구성, 버전 관리, 정리 원칙을 알아보세요.">
+<meta property="og:url" content="https://blackboxy.app/blog-team-prompt-library.html">
+<meta property="og:image" content="https://blackboxy.app/boxy-icon.png">
+<meta property="og:image:width" content="256">
+<meta property="og:image:height" content="256">
+<meta property="og:image:alt" content="BLACKBOXY 마스코트 박시">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="팀 프롬프트 라이브러리 관리하는 법">
+<meta name="twitter:description" content="팀 단위로 프롬프트를 공유하고 관리할 때 필요한 카테고리 구성, 버전 관리, 정리 원칙을 알아보세요.">
+<meta name="twitter:image" content="https://blackboxy.app/boxy-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "팀 프롬프트 라이브러리 관리하는 법",
+  "description": "팀 단위로 프롬프트를 공유하고 관리할 때 필요한 카테고리 구성, 버전 관리, 정리 원칙을 알아보세요.",
+  "url": "https://blackboxy.app/blog-team-prompt-library.html",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://blackboxy.app/blog-team-prompt-library.html"
+  },
+  "inLanguage": "ko-KR",
+  "image": "https://blackboxy.app/boxy-icon.png",
+  "publisher": {
+    "@type": "Organization",
+    "name": "BLACKBOXY",
+    "url": "https://blackboxy.app/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://blackboxy.app/boxy-icon.png",
+      "width": 256,
+      "height": 256
+    }
+  },
+  "author": {
+    "@type": "Organization",
+    "name": "BLACKBOXY 팀",
+    "url": "https://blackboxy.app/about.html"
+  }
+}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="style.css">
+<!-- [TODO] GA4 측정 태그 · Search Console 인증 메타 · AdSense 스크립트는 ID 확보 후 여기에 삽입 -->
+</head>
+<body>
+<header class="site-nav">
+  <a class="nav-brand" href="index.html" aria-label="BLACKBOXY 홈">
+    <img src="boxy-icon.png" alt="BLACKBOXY 로고" width="26" height="26">
+    <span class="nav-brand-pixel">BLACKBOXY</span>
+  </a>
+  <nav class="nav-links" aria-label="주요 메뉴">
+    <a class="nav-link" href="index.html">홈</a><a class="nav-link" href="how-to.html">사용법</a><a class="nav-link" href="guide.html">Prompt Guide</a><a class="nav-link active" href="blog.html" aria-current="page">Blog</a><a class="nav-link" href="about.html">About</a>
+  </nav>
+  <a class="nav-cta" href="index.html">📥 무료로 시작하기</a>
+</header>
+<main class="content-wrap">
+
+<div class="page-eyebrow">Blog</div>
+<h1 class="page-title">팀 프롬프트 라이브러리 관리하는 법</h1>
+<p class="page-subtitle">한 사람이 잘 만든 프롬프트가, 팀 전체의 표준이 될 수 있습니다.</p>
+
+<div class="page-meta">
+  <span>BLACKBOXY 팀</span>
+  <span class="dot"></span>
+  <span>약 6분</span>
+</div>
+
+<div class="article">
+
+<p>개인이 프롬프트를 관리하는 것과, 팀이 프롬프트를 공유하는 것은 다른 문제입니다. 팀 단위로 프롬프트를 관리하면 얻는 이점이 분명합니다.</p>
+
+<h2>왜 팀에 프롬프트 라이브러리가 필요한가</h2>
+<ul>
+  <li><strong>품질 표준화</strong> — 신입도 검증된 프롬프트로 바로 좋은 결과를 낼 수 있음</li>
+  <li><strong>시행착오 감소</strong> — 이미 누군가 시도해서 실패한 접근을 반복하지 않음</li>
+  <li><strong>온보딩 시간 단축</strong> — 새 팀원이 "우리 팀은 이렇게 AI를 쓴다"를 빠르게 익힘</li>
+</ul>
+
+<h2>1. 카테고리를 팀 업무 단위로 나누세요</h2>
+<p>개인용 프롬프트 정리와 달리, 팀 라이브러리는 <strong>업무 프로세스</strong> 기준으로 나누는 게 좋습니다. "마케팅 카피", "고객 응대", "데이터 분석 보고" 처럼 실제 업무 흐름에 맞춰 서랍을 구성하세요.</p>
+
+<h2>2. 출처와 검증 여부를 표시하세요</h2>
+<p>팀에서 쓰는 프롬프트는 "누가, 언제 만들었고 실제로 효과가 있었는지"가 중요합니다. 프롬프트를 등록할 때 만든 사람과 사용 후기를 함께 남기는 습관을 만드세요.</p>
+
+<h2>3. 버전을 관리하세요</h2>
+<p>프롬프트는 계속 개선됩니다. "v1: 초안 → v2: 톤 수정 → v3: 조건 추가"처럼 변경 이력을 남겨두면, 어떤 버전이 왜 더 나은지 팀이 함께 학습할 수 있습니다.</p>
+
+<h2>4. 주기적으로 정리하세요</h2>
+<p>사용하지 않는 프롬프트가 쌓이면 라이브러리 전체의 신뢰도가 떨어집니다. 분기에 한 번 정도, 실제로 자주 쓰는 프롬프트와 그렇지 않은 프롬프트를 구분해서 정리하는 시간을 가지세요.</p>
+
+<h2>5. 접근 권한보다 접근성을 우선하세요</h2>
+<p>너무 엄격한 승인 절차를 두면 팀원들이 라이브러리를 쓰지 않고 각자 방식대로 돌아갑니다. 처음에는 자유롭게 등록하게 하고, 실제로 자주 쓰이는 것들 위주로 다듬어나가는 방식이 정착률이 높습니다.</p>
+
+<div class="callout">
+  💡 <strong>시작하는 방법</strong>: 거창하게 시작할 필요 없습니다. 팀에서 가장 자주 쓰는 프롬프트 5개만 먼저 정리해서 공유해보세요. 그 5개가 잘 정착하면 자연스럽게 늘어납니다.
+</div>
+
+</div>
+
+<div class="cta-box">
+  <div class="cta-box-title">팀에서 검증된 프롬프트, 서랍별로 정리해두세요</div>
+  <div class="cta-box-sub">색깔별 서랍으로 나눠두면 누구나 직관적으로 찾을 수 있어요</div>
+  <a class="cta-box-btn" href="index.html">📥 BLACKBOXY 열기</a>
+</div>
+
+<div class="related-box">
+  <div class="related-title">함께 보면 좋은 글</div>
+  <div class="related-links">
+    <a class="related-link" href="blog-dev-coding-prompts.html"><span class="arrow">→</span> 개발자를 위한 AI 코딩 프롬프트 모음</a>
+    <a class="related-link" href="blog-why-save-prompts.html"><span class="arrow">→</span> 프롬프트를 저장하고 재사용해야 하는 이유</a>
+    <a class="related-link" href="how-to.html"><span class="arrow">→</span> BLACKBOXY 사용법</a>
+  </div>
+</div>
+
+</main>
+
+<!-- ══ ADSENSE SLOT — 승인 후 style="display:none" 제거하고 광고 코드 삽입 ══ -->
+<div class="adsense-slot-wrap" style="display:none;">
+  <div class="adsense-slot">
+    <span class="adsense-tag">AD</span>
+    <span>광고 영역 (Google AdSense)</span>
+  </div>
+</div>
+
+<footer class="site-footer-wrap">
+  <div class="footer-columns">
+    <div class="footer-brand-col">
+      <img src="boxy-icon.png" alt="" width="36" height="36" loading="lazy">
+      <div>
+        <div class="footer-brand">BLACKBOXY</div>
+        <div class="footer-tag">기억을 수집하는 로봇, 박시가 만든<br>프롬프트 서랍장 🗄️</div>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Resources</div>
+      <div class="footer-col-links">
+        <a href="how-to.html">사용법</a>
+        <a href="guide.html">Prompt Guide</a>
+        <a href="blog.html">Blog</a>
+        <a href="about.html">About</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Legal</div>
+      <div class="footer-col-links">
+        <a href="privacy.html">개인정보처리방침</a>
+        <a href="terms.html">이용약관</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Product</div>
+      <div class="footer-col-links">
+        <a href="index.html">웹앱 열기</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copyright">© 2026 BLACKBOXY. All rights reserved.</div>
+    <div class="footer-contact-group">
+      <span class="footer-contact-label">📢 광고 및 협업 문의</span>
+      <a class="footer-contact" href="mailto:heosoyoone@gmail.com">✉️ heosoyoone@gmail.com</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

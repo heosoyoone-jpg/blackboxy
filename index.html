@@ -322,13 +322,17 @@ body.modal-open { overflow: hidden; }
 }
 .paper-tags { display: flex; gap: 4px; flex-wrap: wrap; }
 .paper-tag { font-size: 9px; padding: 2px 7px; border-radius: 8px; font-weight: 700; background: var(--paper-tag); color: #938F81; }
-.paper-copy {
+.paper-copy, .paper-view {
   font-size: 10px; color: #A29D8E; font-weight: 800; white-space: nowrap;
   padding: 3px 8px; border-radius: 8px;
   transition: all .12s;
 }
-.paper-copy:hover { background: var(--paper-tag); color: #26282E; }
+.paper-copy:hover, .paper-view:hover { background: var(--paper-tag); color: #26282E; }
 .paper-copy.copied { color: #2E8B57; }
+.paper-footer { flex-wrap: wrap; }
+.paper-actions { display: flex; gap: 2px; margin-left: auto; flex-shrink: 0; }
+.view-src { font-size: 12px; color: var(--text-dim); font-weight: 600; margin-top: 10px; overflow-wrap: anywhere; }
+.view-prompt { overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
 .paper-src { font-size: 8.5px; color: #B8B4A6; font-weight: 600; margin-top: 6px; }
 
 /* star pop animation */
@@ -818,6 +822,8 @@ mark.hl { color: inherit; }
   .empty-state { padding: 36px 0 44px; }
   .empty-samples-wrap { margin-top: 32px; }
   .link-btn { min-height: 44px; }
+  .view-prompt { max-height: min(52dvh, 420px); }
+  .view-actions .pub-btn { padding: 8px 6px; }
   .modal-close { min-width: 40px; min-height: 40px; display: flex; align-items: center; justify-content: center; }
 
   /* 신규 요소 모바일 대응 */
@@ -830,7 +836,7 @@ mark.hl { color: inherit; }
   .maker-card { flex-wrap: wrap; }
   .maker-cta { min-height: 44px; }
   /* 터치 영역 확보 */
-  .paper-copy, .save-fab, .drawer-btn { min-height: 44px; }
+  .paper-copy, .paper-view, .save-fab, .drawer-btn { min-height: 44px; }
   .paper-star, .paper-menu-btn { min-width: 40px; min-height: 40px; }
   /* 긴 제목/미리보기 제한 */
   .paper-title { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
@@ -966,7 +972,7 @@ mark.hl { color: inherit; }
   </div>
 </footer>
 
-<!-- ══ VIEW MODAL (공개 프롬프트 내용 보기) ══ -->
+<!-- ══ VIEW MODAL (공개 프롬프트 / 내 기억 내용 보기 — 같은 모달 재사용) ══ -->
 <div class="modal-bg" id="view-modal" onclick="if(event.target===this)closeView()">
   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="view-title">
     <div class="modal-head">
@@ -976,8 +982,9 @@ mark.hl { color: inherit; }
     </div>
     <div class="view-body">
       <div class="view-meta" id="view-meta"></div>
-      <div class="view-prompt" id="view-prompt"></div>
-      <div class="view-actions">
+      <div class="view-prompt" id="view-prompt" tabindex="0" aria-label="프롬프트 전체 내용"></div>
+      <div class="view-src" id="view-src" hidden></div>
+      <div class="view-actions" id="view-actions">
         <button class="pub-btn view" onclick="copyViewPrompt()">📋 복사하기</button>
         <button class="pub-btn grab" id="view-grab-btn" onclick="grabFromView()">🧺 내 서랍에 담기</button>
       </div>
@@ -1334,6 +1341,59 @@ function grabPublic(pubId, e) {
 
 /* ═══════════════ 내용 보기 모달 ═══════════════ */
 let viewingPubId = null;
+let viewingMineId = null;   // 내 기억 보관함 카드 보기
+
+/* 내 기억 전체 보기 — 공개 프롬프트 보기 모달을 그대로 재사용 */
+function openMineView(id, e) {
+  if (e) e.stopPropagation();
+  closeAllMenus();
+  const p = prompts.find(x => x.id === id);
+  if (!p) return;
+  const d = drawerOf(p.drawer);
+  viewingPubId = null;
+  viewingMineId = id;
+  document.getElementById('view-title').innerHTML = `${esc(p.title)}<small>${d.emoji} ${esc(d.name)} 서랍 · ${timeAgo(p.createdAt)} 저장${p.copies ? ` · ${p.copies}번 꺼내씀` : ''}</small>`;
+  document.getElementById('view-meta').innerHTML = `
+    <span class="pub-cat-tab" style="background:${d.hex};">${d.emoji} ${esc(d.name)}</span>
+    ${p.starred ? '<span class="pub-ai">⭐ 즐겨찾기</span>' : ''}
+    ${p.tags.map(t => `<span class="pub-ai" style="background:var(--surface);color:var(--text-mid);">#${esc(t)}</span>`).join('')}
+  `;
+  const body = document.getElementById('view-prompt');
+  body.textContent = p.body;
+  body.scrollTop = 0;
+  const src = document.getElementById('view-src');
+  src.textContent = p.src ? `🌐 출처: ${p.src}` : '✏️ 출처: 내가 씀';
+  src.hidden = false;
+  document.getElementById('view-actions').innerHTML = `
+        <button class="pub-btn view" onclick="copyMineFromView()">📋 복사하기</button>
+        <button class="pub-btn view" onclick="editFromView()">✏️ 편집하기</button>
+        <button class="pub-btn view" onclick="closeView()">닫기</button>`;
+  lastFocus = (e && e.currentTarget) || document.querySelector(`#paper-${id} .paper-view`) || document.activeElement;
+  document.getElementById('view-modal').classList.add('open');
+  lockScroll(true);
+  setTimeout(() => document.querySelector('#view-modal .modal-close').focus(), 50);
+}
+async function copyMineFromView() {
+  const p = prompts.find(x => x.id === viewingMineId);
+  if (!p) return;
+  if (!(await copyText(p.body))) {
+    showToast('😵 복사에 실패했어요. 본문을 길게 눌러 직접 복사해 주세요', 'normal');
+    return;
+  }
+  p.copies = (p.copies || 0) + 1;            // 카드의 꺼내쓰기와 동일하게 횟수 증가
+  persist();
+  renderAll();
+  showToast('👍 기억을 꺼냈어요! 클립보드에 복사됨', 'happy');
+  boxyReact('happy');
+}
+function editFromView() {
+  const id = viewingMineId;
+  if (!id) return;
+  const back = lastFocus;                    // 편집을 마치면 원래 카드로 포커스 복귀
+  closeView();
+  openEditModal(id);
+  if (back && document.contains(back)) lastFocus = back;
+}
 function openView(pubId) {
   const p = PUBLIC_PROMPTS.find(x => x.id === pubId);
   if (!p) return;
@@ -1347,6 +1407,12 @@ function openView(pubId) {
     ${p.tags.map(t => `<span class="pub-ai" style="background:var(--surface);color:var(--text-mid);">#${esc(t)}</span>`).join('')}
   `;
   document.getElementById('view-prompt').textContent = p.body;
+  document.getElementById('view-prompt').scrollTop = 0;
+  document.getElementById('view-src').hidden = true;
+  viewingMineId = null;
+  document.getElementById('view-actions').innerHTML = `
+        <button class="pub-btn view" onclick="copyViewPrompt()">📋 복사하기</button>
+        <button class="pub-btn grab" id="view-grab-btn" onclick="grabFromView()">🧺 내 서랍에 담기</button>`;
   const grabBtn = document.getElementById('view-grab-btn');
   grabBtn.textContent = grabbed ? '✓ 담아둔 기억' : '🧺 내 서랍에 담기';
   grabBtn.classList.toggle('grabbed', grabbed);
@@ -1359,9 +1425,15 @@ function closeView() {
   const m = document.getElementById('view-modal');
   if (!m.classList.contains('open')) return;
   m.classList.remove('open');
+  const mineId = viewingMineId;
   viewingPubId = null;
+  viewingMineId = null;
   if (!anyModalOpen()) lockScroll(false);
   if (lastFocus && document.contains(lastFocus)) lastFocus.focus();
+  else if (mineId) {                          // 복사 후 카드가 다시 그려졌으면 같은 카드의 버튼으로
+    const btn = document.querySelector(`#paper-${mineId} .paper-view`);
+    if (btn) btn.focus();
+  }
 }
 async function copyViewPrompt() {
   const p = PUBLIC_PROMPTS.find(x => x.id === viewingPubId);
@@ -1480,7 +1552,10 @@ function renderWall() {
       <div class="paper-body">"${hl(p.body, q)}"</div>
       <div class="paper-footer">
         <div class="paper-tags">${p.tags.map(t => `<span class="paper-tag">#${esc(t)}</span>`).join('')}</div>
-        <button class="paper-copy" onclick="copyPrompt('${p.id}', event)">📋 꺼내쓰기</button>
+        <span class="paper-actions">
+          <button class="paper-view" onclick="openMineView('${p.id}', event)" aria-haspopup="dialog">👀 내용 보기</button>
+          <button class="paper-copy" onclick="copyPrompt('${p.id}', event)">📋 꺼내쓰기</button>
+        </span>
       </div>
       <div class="paper-src">${src} · ${timeAgo(p.createdAt)}${copies}</div>
     </div>`;

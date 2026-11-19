@@ -49,6 +49,13 @@
   [headers.values]
     Cache-Control = "public, max-age=604800"
 
+# AdSense ads.txt: 일반 텍스트로, 수정 시 바로 반영되게 매번 확인
+[[headers]]
+  for = "/ads.txt"
+  [headers.values]
+    Content-Type = "text/plain; charset=utf-8"
+    Cache-Control = "public, max-age=0, must-revalidate"
+
 [[headers]]
   for = "/sitemap.xml"
   [headers.values]
